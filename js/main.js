@@ -6,3 +6,18 @@ snake = new Snake();
 
 game.clearScreen(ctx);
 snake.draw(ctx);
+
+let lastTime = 0;
+window.requestAnimationFrame(gameLoop);
+
+function gameLoop() { 
+
+  // update
+  // inputHandler();
+  snake.update();
+
+  // draw
+  snake.draw(ctx);
+
+  window.requestAnimationFrame(gameLoop);
+}
