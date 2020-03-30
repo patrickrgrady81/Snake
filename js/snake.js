@@ -2,7 +2,7 @@ export default class Snake {
   constructor(context) { 
     this.ctx = context;
 
-    this.size = 15;
+    this.size = 16;
     this.speedx = 0;
     this.speedy = 0;
     this.maxSpeed = 5;

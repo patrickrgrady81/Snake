@@ -4,7 +4,7 @@ export default class Food{
     this.ctx = context;
 
     this.pos = { x: 0, y: 0 };
-    this.size = 15;
+    this.size = 16;
     this.pos.x = Math.floor(Math.random() * (this.game.WIDTH - (this.size + 10)) + 10); //set to random
     this.pos.y = Math.floor(Math.random() * (this.game.HEIGHT - (this.size + 10)) + 10); //set to random
 
