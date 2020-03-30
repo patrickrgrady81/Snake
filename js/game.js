@@ -1,11 +1,12 @@
-class Game {
-  constructor(width, height) {
+export default class Game {
+  constructor(width, height, context) {
     this.WIDTH = width;
     this.HEIGHT = height;
+    this.ctx = context;
   }
 
-  clearScreen(ctx) {
-    ctx.fillStyle = "blue"
-    ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
+  clearScreen() {
+    this.ctx.fillStyle = "blue"
+    this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
   }
 }
