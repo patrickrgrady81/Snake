@@ -22,6 +22,7 @@ function gameLoop() {
   input.update();
   snake.update();
   // check bounds
+  game.checkBounds(snake);
   // check collsions
   if (game.collisions(snake, food)) {
     food.hit();

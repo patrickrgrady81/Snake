@@ -52,4 +52,16 @@ export default class Game {
     }
     return collision;
   }
+
+  checkBounds(toCheck) { 
+    if (toCheck.pos.x > this.WIDTH)
+      toCheck.pos.x = 0;
+    if (toCheck.pos.x < 0)
+      toCheck.pos.x = this.WIDTH;
+    if (toCheck.pos.y > this.HEIGHT)
+      toCheck.pos.y = 0
+    if (toCheck.pos.y < 0)
+      toCheck.pos.y = this.HEIGHT
+  
+  }
 }
