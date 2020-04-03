@@ -5,8 +5,16 @@ export default class Snake {
     this.size = 16;
     this.speedx = 0;
     this.speedy = 0;
-    this.maxSpeed = 5;
+    this.maxSpeed = 2;
     this.pos = {x: 100, y: 100};
+  }
+
+  speedUp() { 
+    this.maxSpeed += 0.1;
+  }
+
+  grow() { 
+
   }
 
   moveLeft() {

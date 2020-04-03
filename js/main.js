@@ -26,6 +26,8 @@ function gameLoop() {
   // check collsions
   if (game.collisions(snake, food)) {
     food.hit();
+    snake.speedUp();
+    snake.grow();
   }
 
   // draw

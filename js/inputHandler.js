@@ -8,16 +8,19 @@ export default class inputHandler {
       68: 'right',
       65: 'left',
       87: 'up',
-      83: 'down'
+      83: 'down',
+      32: 'space'
     }
     this.pressedKeys = {
       left: false,
       right: false,
       up: false,
-      down: false
+      down: false,
+      space: false
     }
 
     document.addEventListener("keydown", (event) => { 
+      // console.log(event.keyCode);
       event.preventDefault;
       let key = this.keyMap[event.keyCode];
       this.pressedKeys[key] = true;
@@ -45,9 +48,12 @@ export default class inputHandler {
     if (this.pressedKeys.down) {
       this.snake.moveDown();
     }
-    if (!this.pressedKeys.right && !this.pressedKeys.left && !this.pressedKeys.up && !this.pressedKeys.down) {
+    if (this.pressedKeys.space) { 
       this.snake.stop();
     }
+    // if (!this.pressedKeys.right && !this.pressedKeys.left && !this.pressedKeys.up && !this.pressedKeys.down) {
+    //   this.snake.stop();
+    // }
   }
 }
  
