@@ -6,13 +6,21 @@ export default class Snake {
     this.speedx = 0;
     this.speedy = 0;
     this.maxSpeed = 2;
+
+    this.pos = {};
     this.body = [];
     this.createBody();
   }
 
   createBody() { 
-    // this.pos = {x: 100, y: 100};  // How to make this into the Body?
-    this.pos = {x: 100, y: 100};
+    this.pos = { x: 100, y: 100 }; // How to make this into the Body?
+    // everything looks for this.pos, everything needs to be refactored!
+    // Bit I tried this 3 fucking times and it is shit every time!
+    // What else can I do to change this?
+    // maybe this.pos is the head and we can use that to create the body
+    // then no refactor is neccesary 
+    // this.body would start at this.pos-this.size and go from there
+    
   }
 
   speedUp() { 
