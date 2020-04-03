@@ -22,6 +22,9 @@ export default class Snake {
     // this.body would start at this.pos-this.size and go from there
     
   }
+  addBody() { 
+    
+  }
 
   speedUp() { 
     this.maxSpeed += 0.1;
@@ -58,10 +61,12 @@ export default class Snake {
   
   draw() { 
     this.ctx.fillStyle = "green";
+    // loop for all pieces
     this.ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
   }
 
   update() { 
+    // loop for all pieces
     this.pos.x += this.speedx;
     this.pos.y += this.speedy;
   }
