@@ -6,6 +6,11 @@ export default class Snake {
     this.speedx = 0;
     this.speedy = 0;
     this.maxSpeed = 2;
+    this.body = [];
+    this.createBody();
+  }
+
+  createBody() { 
     this.pos = {x: 100, y: 100};
   }
 
