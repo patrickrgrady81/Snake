@@ -11,6 +11,7 @@ export default class Snake {
   }
 
   createBody() { 
+    // this.pos = {x: 100, y: 100};  // How to make this into the Body?
     this.pos = {x: 100, y: 100};
   }
 
