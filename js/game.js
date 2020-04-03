@@ -6,7 +6,7 @@ export default class Game {
   }
 
   clearScreen() {
-    this.ctx.fillStyle = "blue"
+    this.ctx.fillStyle = "MidnightBlue"
     this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
   }
 
