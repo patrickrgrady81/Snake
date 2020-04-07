@@ -1,5 +1,5 @@
 export default class Snake { 
-  constructor(context) { 
+  constructor(context) {
     this.ctx = context;
 
     this.size = 16;
@@ -10,7 +10,7 @@ export default class Snake {
     this.pos = {};
     this.body = [];
     this.createBody();
-  }
+    }
 
   createBody() { 
     this.pos = { x: 100, y: 100 }; // How to make this into the Body?
