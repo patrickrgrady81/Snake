@@ -28,8 +28,20 @@ export default class Snake {
     // this.maxSpeed += 1;
   }
 
-  grow() { 
-    console.log();
+  grow() {
+    this.parts++;
+    console.log(`x: ${this.body[0].x}, y:${this.body[0].y}`);
+    if (this.moving()) {
+      if (this.speedx > 0) {
+        this.body.unshift({ x: this.body[0].x - 16, y: this.body[0].y });
+      } else if (this.speed < 0) {
+        this.body.unshift({ x: this.body[0].x + 16, y: this.body[0].y });
+      } else if (this.speedy > 0) {
+        this.body.unshift({ x: this.body[0].x, y: this.body[0].y - 16 });
+      } else {
+      this.body.unshift({ x: this.body[0].x, y: this.body[0].y + 16 });
+      }
+    }
   }
 
   moveLeft() {
