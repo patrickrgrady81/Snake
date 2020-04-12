@@ -11,8 +11,8 @@ export default class Game {
   }
 
   collisions(me, you) { 
-    // if (me.pos.x)
-    // console.log(me.pos.x);
+    // if (me.head.x)
+    // console.log(me.head.x);
     // console.log(you.pos.y + you.size);
     let topRightHit = false;
     let topLeftHit = false;
@@ -22,11 +22,11 @@ export default class Game {
     let sideHit = false;
     let collision = false;
 
-    if (me.pos.x + me.size <= you.pos.x + you.size && me.pos.x + me.size >= you.pos.x) {
+    if (me.head.x + me.size <= you.pos.x + you.size && me.head.x + me.size >= you.pos.x) {
       // console.log("Top Right");
       topRightHit = true;
     }
-    if (me.pos.x >= you.pos.x && me.pos.x <= you.pos.x + you.size) { 
+    if (me.head.x >= you.pos.x && me.head.x <= you.pos.x + you.size) { 
       // console.log("Top Left");
       topLeftHit = true;
     }
@@ -35,11 +35,11 @@ export default class Game {
       topHit = true;
     }
 
-    if (me.pos.y >= you.pos.y && me.pos.y <= you.pos.y + you.size ) { 
+    if (me.head.y >= you.pos.y && me.head.y <= you.pos.y + you.size ) { 
       // console.log("Left Side Hit");
       leftSideHit = true;
     }
-    if (me.pos.y + me.size >= you.pos.y && me.pos.y + me.size <= you.pos.y + you.size ) { 
+    if (me.head.y + me.size >= you.pos.y && me.head.y + me.size <= you.pos.y + you.size ) { 
       // console.log("Right Side Hit");
       rightSideHit = true;
     }
@@ -54,14 +54,14 @@ export default class Game {
   }
 
   checkBounds(toCheck) { 
-    if (toCheck.pos.x > this.WIDTH)
-      toCheck.pos.x = 0;
-    if (toCheck.pos.x < 0)
-      toCheck.pos.x = this.WIDTH;
-    if (toCheck.pos.y > this.HEIGHT)
-      toCheck.pos.y = 0
-    if (toCheck.pos.y < 0)
-      toCheck.pos.y = this.HEIGHT
+    if (toCheck.x > this.WIDTH)
+      toCheck.x = 0;
+    if (toCheck.x < 0)
+      toCheck.x = this.WIDTH;
+    if (toCheck.y > this.HEIGHT)
+      toCheck.y = 0
+    if (toCheck.y < 0)
+      toCheck.y = this.HEIGHT
   
   }
 }

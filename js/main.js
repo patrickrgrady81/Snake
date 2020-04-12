@@ -22,12 +22,12 @@ function gameLoop() {
   input.update();
   snake.update();
   // check bounds
-  game.checkBounds(snake);
+  game.checkBounds(snake.head);
   // check collsions
   if (game.collisions(snake, food)) {
-    food.hit();
     snake.speedUp();
     snake.grow();
+    food.hit();
   }
 
   // draw
@@ -35,5 +35,6 @@ function gameLoop() {
   food.draw();
   snake.draw();
 
-  window.requestAnimationFrame(gameLoop);
+  setTimeout(gameLoop, 80);
+  // window.requestAnimationFrame(gameLoop);
 }

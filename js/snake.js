@@ -5,33 +5,31 @@ export default class Snake {
     this.size = 16;
     this.speedx = 0;
     this.speedy = 0;
-    this.maxSpeed = 2;
+    this.maxSpeed = 16;
 
-    this.pos = {};
+    this.head = {};
     this.body = [];
+    this.parts = 3;
     this.createBody();
     }
 
   createBody() { 
-    this.pos = { x: 100, y: 100 }; // How to make this into the Body?
-    // everything looks for this.pos, everything needs to be refactored!
-    // Bit I tried this 3 fucking times and it is shit every time!
-    // What else can I do to change this?
-    // maybe this.pos is the head and we can use that to create the body
-    // then no refactor is neccesary 
-    // this.body would start at this.pos-this.size and go from there
-    
-  }
-  addBody() { 
-    
+    this.head = { x: 160, y: 100 };
+    for (let i = this.parts - 1; i > 0; i--){
+      let x = this.head.x - this.size * i;
+      let y = 100;
+      this.body.push({ x: x, y: y });
+    }
+    this.body.push(this.head);
+    console.log(this.body);
   }
 
   speedUp() { 
-    this.maxSpeed += 0.1;
+    // this.maxSpeed += 1;
   }
 
   grow() { 
-
+    console.log();
   }
 
   moveLeft() {
@@ -62,12 +60,33 @@ export default class Snake {
   draw() { 
     this.ctx.fillStyle = "green";
     // loop for all pieces
-    this.ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
+    console.log(this.body);
+    // this.ctx.fillRect(this.head.x, this.head.y, this.size, this.size);
+    for (let i = 0; i <= this.parts-1; i++) {
+      console.log(i);
+      this.ctx.fillRect(this.body[i].x, this.body[i].y, this.size, this.size);
+      // console.log(`${i}: x: ${this.body[i].x}, y: ${this.body[i].y}`);
+      
+    }
+  }
+
+  moving() { 
+    // console.log(`speedx: ${this.speedx}, speedy: ${this.speedy}`);
+    if (this.speedx != 0 || this.speedy != 0) {
+      return true;
+    }
+    return false;
   }
 
   update() { 
     // loop for all pieces
-    this.pos.x += this.speedx;
-    this.pos.y += this.speedy;
+    for (let i = 0; i < this.parts - 1; i++){
+      if (this.moving()) {
+        this.body[i].x = this.body[i + 1].x;
+        this.body[i].y = this.body[i + 1].y;
+      }
+    }
+    this.head.x += this.speedx;
+    this.head.y += this.speedy;
   }
 }
