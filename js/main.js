@@ -28,14 +28,16 @@ function gameLoop() {
   if (game.collisions(snake, food)) {
     snake.grow();
     food.hit();
+    game.addScore();
   }
 
   // draw
   game.clearScreen();
   food.draw();
   snake.draw();
+  game.showScore();
 
-  delay = 90 - Math.floor(snake.parts / 2) + 3;
+  delay = 90 - Math.floor(game.score / 2);
 
   setTimeout(gameLoop, delay);
   // window.requestAnimationFrame(gameLoop);

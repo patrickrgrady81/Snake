@@ -6,9 +6,13 @@ export default class inputHandler {
     this.snake = snake;
     this.keyMap = {
       68: 'right',
+      39: 'right',
       65: 'left',
+      37: 'left',
       87: 'up',
+      38: 'up',
       83: 'down',
+      40: 'down',
       32: 'space'
     }
     this.pressedKeys = {

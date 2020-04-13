@@ -3,6 +3,19 @@ export default class Game {
     this.WIDTH = width;
     this.HEIGHT = height;
     this.ctx = context;
+    this.score = 0;
+  }
+
+  addScore() { 
+    this.score += 1;
+  }
+
+  showScore() { 
+    // console.log(this.score);
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "20px Monospace";
+    this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH - 130, 40);
+    
   }
 
   clearScreen() {
