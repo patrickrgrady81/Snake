@@ -20,16 +20,10 @@ export default class Snake {
       this.body.push({ x: x, y: y });
     }
     this.body.push(this.head);
-    console.log(this.body);
-  }
-
-  speedUp() { 
-    // this.size += 1;
   }
 
   grow() {
     this.parts++;
-    console.log(`x: ${this.body[0].x}, y:${this.body[0].y}`);
     if (this.moving()) {
       if (this.speed.x > 0) {
         this.body.unshift({ x: this.body[0].x - 16, y: this.body[0].y });
@@ -75,9 +69,7 @@ export default class Snake {
     if (this.moving()) {
       this.remeber = this.speed;
       this.speed = { x: 0, y: 0 };
-      console.log(`x: ${this.remember.x}, y: ${this.remember.y}`);
     } else { 
-      console.log(`x: ${this.remember.x}, y: ${this.remember.y}`);
       this.speed = this.remember;
       this.remeber = { x: 0, y: 0 };
     }
@@ -86,18 +78,13 @@ export default class Snake {
   draw() { 
     this.ctx.fillStyle = "green";
     // loop for all pieces
-    // console.log(this.body);
-    // this.ctx.fillRect(this.head.x, this.head.y, this.size, this.size);
     for (let i = 0; i <= this.parts-1; i++) {
-      // console.log(i);
       this.ctx.fillRect(this.body[i].x, this.body[i].y, this.size, this.size);
-      // console.log(`${i}: x: ${this.body[i].x}, y: ${this.body[i].y}`);
       
     }
   }
 
   moving() { 
-    // console.log(`speed.x: ${this.speed.x}, speed.y: ${this.speed.y}`);
     if (this.speed.x != 0 || this.speed.y != 0) {
       return true;
     }

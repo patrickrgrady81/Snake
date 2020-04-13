@@ -10,6 +10,7 @@ let game = new Game(canvas.width, canvas.height, ctx);
 let snake = new Snake(ctx);
 let input = new inputHandler(snake);
 let food = new Food(game, ctx);
+let delay = 80;
 
 
 // gameLoop
@@ -25,7 +26,6 @@ function gameLoop() {
   game.checkBounds(snake.head);
   // check collsions
   if (game.collisions(snake, food)) {
-    snake.speedUp();
     snake.grow();
     food.hit();
   }
@@ -35,6 +35,8 @@ function gameLoop() {
   food.draw();
   snake.draw();
 
-  setTimeout(gameLoop, 80);
+  delay = 90 - Math.floor(snake.parts / 2) + 3;
+
+  setTimeout(gameLoop, delay);
   // window.requestAnimationFrame(gameLoop);
 }
