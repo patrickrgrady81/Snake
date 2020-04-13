@@ -45,7 +45,7 @@ function gameLoop() {
   snake.draw();
   game.HUD();
 
-  delay = 90 - Math.floor(game.score / 2);
+  delay = 110 - game.speed;
 
   setTimeout(gameLoop, delay);
 }
