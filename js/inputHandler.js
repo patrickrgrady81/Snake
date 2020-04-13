@@ -5,14 +5,18 @@ export default class inputHandler {
   constructor(snake) { 
     this.snake = snake;
     this.keyMap = {
-      68: 'right',
-      39: 'right',
+      // For WASD
       65: 'left',
-      37: 'left',
       87: 'up',
-      38: 'up',
+      68: 'right',
       83: 'down',
+      
+      // For arrrow keys
+      37: 'left',
+      38: 'up',
+      39: 'right',
       40: 'down',
+
       32: 'space'
     }
     this.pressedKeys = {
@@ -55,9 +59,6 @@ export default class inputHandler {
     if (this.pressedKeys.space) { 
       this.snake.stop();
     }
-    // if (!this.pressedKeys.right && !this.pressedKeys.left && !this.pressedKeys.up && !this.pressedKeys.down) {
-    //   this.snake.stop();
-    // }
   }
 }
  
