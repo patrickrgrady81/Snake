@@ -105,14 +105,14 @@ export default class Game {
   }
 
   checkBounds(toCheck) { 
-    if (toCheck.x > this.WIDTH)
+    if (toCheck.x > this.WIDTH-8)
       toCheck.x = 0;
     if (toCheck.x < 0)
-      toCheck.x = this.WIDTH;
-    if (toCheck.y > this.HEIGHT)
+      toCheck.x = this.WIDTH-8;
+    if (toCheck.y > this.HEIGHT-8)
       toCheck.y = 0
     if (toCheck.y < 0)
-      toCheck.y = this.HEIGHT
+      toCheck.y = this.HEIGHT-8
   
   }
   gameOver() { 
