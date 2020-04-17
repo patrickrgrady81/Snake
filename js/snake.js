@@ -148,20 +148,12 @@ export default class Snake {
 
   update() { 
     // loop for all pieces
-    for (let i = 0; i < this.parts - 1; i++){
+    for (let i = 0; i < this.parts - 1; i++) {
       if (this.moving()) {
         this.body[i].x = this.body[i + 1].x;
         this.body[i].y = this.body[i + 1].y;
       }
     }
-
-    // this.body.map((part, i) => {
-    //   if (this.moving()) {
-    //     console.table(part);
-
-    //     part.x = this.body[i+1].x;
-    //     part.y = this.body[i+1].y;
-    //   }});
     this.head.x += this.speed.x;
     this.head.y += this.speed.y;
   }
