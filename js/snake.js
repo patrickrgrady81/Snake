@@ -134,7 +134,7 @@ export default class Snake {
     //   this.ctx.fillRect(this.body[i].x, this.body[i].y, this.size, this.size);
       
     // }
-    this.body.map((part, i) => {
+    this.body.map((part) => {
       this.ctx.fillRect(part.x, part.y, this.size, this.size);
     });
   }
@@ -154,6 +154,14 @@ export default class Snake {
         this.body[i].y = this.body[i + 1].y;
       }
     }
+
+    // this.body.map((part, i) => {
+    //   if (this.moving()) {
+    //     console.table(part);
+
+    //     part.x = this.body[i+1].x;
+    //     part.y = this.body[i+1].y;
+    //   }});
     this.head.x += this.speed.x;
     this.head.y += this.speed.y;
   }

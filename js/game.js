@@ -65,9 +65,6 @@ export default class Game {
   }
 
   collisions(me, you) { 
-    // if (me.head.x)
-    // console.log(me.head.x);
-    // console.log(you.pos.y + you.size);
     let topRightHit = false;
     let topLeftHit = false;
     let topHit = false;
