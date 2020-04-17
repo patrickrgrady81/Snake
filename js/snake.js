@@ -130,10 +130,13 @@ export default class Snake {
   draw() { 
     this.ctx.fillStyle = "green";
     // loop for all pieces
-    for (let i = 0; i <= this.parts-1; i++) {
-      this.ctx.fillRect(this.body[i].x, this.body[i].y, this.size, this.size);
+    // for (let i = 0; i <= this.parts-1; i++) {
+    //   this.ctx.fillRect(this.body[i].x, this.body[i].y, this.size, this.size);
       
-    }
+    // }
+    this.body.map((part, i) => {
+      this.ctx.fillRect(part.x, part.y, this.size, this.size);
+    });
   }
 
   moving() { 
