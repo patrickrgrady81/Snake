@@ -35,7 +35,7 @@ function gameLoop() {
     game.addScore();
   }
   if (snake.hitSelf()) { 
-    gameOver();
+    game.gameOver();
     return;
   }
 
@@ -48,12 +48,4 @@ function gameLoop() {
   delay = 110 - game.speed;
 
   setTimeout(gameLoop, delay);
-}
-
- function gameOver() { 
-   game.clearScreen();
-   game.ctx.fillStyle = "white";
-   game.ctx.font = "30px Monospace";
-   game.ctx.fillText(`GAME OVER!`, width / 2 - 70, height / 2 - 20);
-   game.ctx.fillText(`SCORE: ${game.score}`, width / 2 - 60, height / 2 + 20);
 }

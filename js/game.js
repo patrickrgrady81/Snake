@@ -118,4 +118,11 @@ export default class Game {
       toCheck.y = this.HEIGHT
   
   }
+  gameOver() { 
+    this.clearScreen();
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "30px Monospace";
+    this.ctx.fillText(`GAME OVER!`, this.WIDTH / 2 - 70, this.HEIGHT / 2 - 20);
+    this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH / 2 - 60, this.HEIGHT / 2 + 20);
+ }
 }
