@@ -1,8 +1,10 @@
 import Snake from "./snake.js";
+import Game from "./game.js";
 
 
 export default class inputHandler {
   constructor(snake) { 
+    // this.game = game;
     this.snake = snake;
     this.keyMap = {
       // For WASD
@@ -57,6 +59,9 @@ export default class inputHandler {
       this.snake.moveDown();
     }
     if (this.pressedKeys.space) { 
+      // if (this.game.mainMenuRunning) {
+      //   this.game.mainMenuRunning = false;
+      // }
       this.snake.stop();
     }
   }

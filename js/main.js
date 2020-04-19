@@ -10,14 +10,15 @@ const width = canvas.width;
 const height = canvas.height;
 
 const game = new Game(width, height, ctx);
-const snake = new Snake(ctx);
+const snake = new Snake(ctx, game);
 const input = new inputHandler(snake);
 const food = new Food(game, ctx);
 
 let delay = 80;
 
-window.requestAnimationFrame(gameLoop);
+// game.mainMenu()
 
+window.requestAnimationFrame(gameLoop);
 
 function gameLoop() { 
 

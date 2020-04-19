@@ -5,9 +5,11 @@ export default class Game {
     this.ctx = context;
     this.speed = 0;
     this.score = 0;
+    this.mainMenuRunning = true;
+    this.highScores = null;
   }
 
-  addScore() { 
+  addScore() {
     this.score += 1;
     // this.speed = Math.floor(this.score / 2);
     this.getNewSpeed();
@@ -40,18 +42,18 @@ export default class Game {
     }
   }
 
-  HUD() { 
+  HUD() {
     this.showScore();
     this.showSpeed();
   }
 
-  showSpeed() { 
+  showSpeed() {
     this.ctx.fillStyle = "white";
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`SPEED: ${this.speed}`, 30, 40);
   }
 
-  showScore() { 
+  showScore() {
     // console.log(this.score);
     this.ctx.fillStyle = "white";
     this.ctx.font = "20px Monospace";
@@ -64,7 +66,7 @@ export default class Game {
     this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
   }
 
-  collisions(me, you) { 
+  collisions(me, you) {
     let topRightHit = false;
     let topLeftHit = false;
     let topHit = false;
@@ -77,7 +79,7 @@ export default class Game {
       // console.log("Top Right");
       topRightHit = true;
     }
-    if (me.head.x >= you.pos.x && me.head.x <= you.pos.x + you.size) { 
+    if (me.head.x >= you.pos.x && me.head.x <= you.pos.x + you.size) {
       // console.log("Top Left");
       topLeftHit = true;
     }
@@ -86,11 +88,11 @@ export default class Game {
       topHit = true;
     }
 
-    if (me.head.y >= you.pos.y && me.head.y <= you.pos.y + you.size ) { 
+    if (me.head.y >= you.pos.y && me.head.y <= you.pos.y + you.size) {
       // console.log("Left Side Hit");
       leftSideHit = true;
     }
-    if (me.head.y + me.size >= you.pos.y && me.head.y + me.size <= you.pos.y + you.size ) { 
+    if (me.head.y + me.size >= you.pos.y && me.head.y + me.size <= you.pos.y + you.size) {
       // console.log("Right Side Hit");
       rightSideHit = true;
     }
@@ -98,28 +100,71 @@ export default class Game {
       // console.log("Side Hit");
       sideHit = true;
     
-    if (sideHit && topHit) { 
+    if (sideHit && topHit) {
       collision = true;
     }
     return collision;
   }
 
-  checkBounds(toCheck) { 
-    if (toCheck.x > this.WIDTH-8)
+  checkBounds(toCheck) {
+    if (toCheck.x > this.WIDTH - 8)
       toCheck.x = 0;
     if (toCheck.x < 0)
-      toCheck.x = this.WIDTH-8;
-    if (toCheck.y > this.HEIGHT-8)
+      toCheck.x = this.WIDTH - 8;
+    if (toCheck.y > this.HEIGHT - 8)
       toCheck.y = 0
     if (toCheck.y < 0)
-      toCheck.y = this.HEIGHT-8
+      toCheck.y = this.HEIGHT - 8
   
   }
-  gameOver() { 
+  gameOver() {
     this.clearScreen();
     this.ctx.fillStyle = "white";
     this.ctx.font = "30px Monospace";
     this.ctx.fillText(`GAME OVER!`, this.WIDTH / 2 - 70, this.HEIGHT / 2 - 20);
     this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH / 2 - 60, this.HEIGHT / 2 + 20);
- }
+  }
+
+  mainMenu() { 
+    this.login();
+    this.getHighScores()
+      .then(response => { 
+        this.highScores = response;
+      });
+    window.requestAnimationFrame(this.menuLoop.bind(this))
+  }
+
+  menuLoop() {
+    this.clearScreen();
+
+    // display high scores
+    if (this.highScores) {
+      for (let score in this.highScores) {
+        this.ctx.fillStyle = "white";
+        this.ctx.font = "25px Monospace";
+        let offset = 25 + 10;
+
+        this.ctx.fillText(`HIGH SCORES`, offset, offset);
+        offset += 50;
+        this.ctx.fillText(`${this.highScores[score].value}`, offset, offset + score * 40);
+      }
+  
+
+    }
+    window.requestAnimationFrame(this.menuLoop.bind(this));
+
+    // if (!this.mainMenuRunning) { return }
+
+      
+  }
+
+  async login() { 
+    console.log("Logging in.... ");
+  }
+
+  async getHighScores() {
+    let response = await fetch("http://localhost:3000/api/v1/scores");
+    let data = await response.json()
+    return data;
+  }
 }
