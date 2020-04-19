@@ -12,7 +12,7 @@ const height = canvas.height;
 const game = new Game(width, height, ctx);
 const snake = new Snake(ctx, game);
 const input = new inputHandler(snake);
-const food = new Food(game, ctx);
+const food = new Food(game, ctx, snake);
 
 let delay = 80;
 
