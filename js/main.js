@@ -7,6 +7,8 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', () => { run() })
 
 function run() {
+  const version = "v0.2.5"
+
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
 
@@ -74,6 +76,7 @@ function run() {
     
     ctx.fillStyle = "white";
     ctx.font = "20px Monospace";
+    ctx.fillText(`${version}`, 20, 20);
     ctx.fillText(`PaddySnake`, width / 2 - 55, height / 2 - 40);
     ctx.fillText(`----------`, width / 2 - 55, height / 2 - 10);
     ctx.fillText(`Press SPACE to start`, width / 2 -102, height / 2 + 40 );
