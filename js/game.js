@@ -144,9 +144,7 @@ export default class Game {
 
   prestart() { 
     this.login();
-    let scores = this.getHighScores();
-    console.log(scores);
-    // put highScores in the box
+    this.getHighScores();
   }
 
   async login() { 
@@ -156,6 +154,16 @@ export default class Game {
   async getHighScores() {
     let response = await fetch("http://localhost:3000/api/v1/scores");
     let data = await response.json()
-    return data;
+    
+    this.loadHighScores(data);
+  }
+
+  loadHighScores(data) { 
+    let scores = document.getElementById("highScoreList");
+    for (let i = 0; i < 10; i++) {
+      let newLi = document.createElement("li");
+      newLi.innerHTML = `${10-i}: ${data[i].value}`;
+      scores.appendChild(newLi);
+    }
   }
 }
