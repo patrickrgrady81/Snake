@@ -40,3 +40,8 @@ body{
   text-decoration: underline;
   margin-bottom: 2rem;
 }
+
+#highScoreList li:nth-child(11){
+  margin-right: 1rem;
+  margin-left: 1px;
+}

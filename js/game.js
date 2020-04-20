@@ -140,6 +140,9 @@ export default class Game {
     this.ctx.font = "30px Monospace";
     this.ctx.fillText(`GAME OVER!`, this.WIDTH / 2 - 70, this.HEIGHT / 2 - 20);
     this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH / 2 - 60, this.HEIGHT / 2 + 20);
+
+    //
+    // send score to backend
   }
 
   prestart() { 
@@ -159,10 +162,11 @@ export default class Game {
   }
 
   loadHighScores(data) { 
+    console.table(data);
     let scores = document.getElementById("highScoreList");
     for (let i = 0; i < 10; i++) {
       let newLi = document.createElement("li");
-      newLi.innerHTML = `${10-i}: ${data[i].value}`;
+      newLi.innerHTML = `${i+1}: ${data[i].value}`;
       scores.appendChild(newLi);
     }
   }
