@@ -134,7 +134,7 @@ export default class Game {
       toCheck.y = this.HEIGHT - 8
   
   }
-  gameOver() {
+  async gameOver() {
     this.clearScreen();
     this.ctx.fillStyle = "white";
     this.ctx.font = "30px Monospace";
@@ -143,6 +143,20 @@ export default class Game {
 
     //
     // send score to backend
+    let res = await fetch("http://localhost:3000/api/v1/scores",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          score: this.score
+        })
+      }
+    )
+    this.getHighScores();
+    
   }
 
   prestart() { 
@@ -157,15 +171,20 @@ export default class Game {
   async getHighScores() {
     let response = await fetch("http://localhost:3000/api/v1/scores");
     let data = await response.json()
-    
     this.loadHighScores(data);
   }
 
   loadHighScores(data) { 
     console.table(data);
     let scores = document.getElementById("highScoreList");
+    scores.innerHTML = "";
+    let newLi = document.createElement("li");
+    newLi.innerHTML = "High Scores"
+    newLi.id = "highScoreText"
+    scores.appendChild(newLi);
+
     for (let i = 0; i < 10; i++) {
-      let newLi = document.createElement("li");
+      newLi = document.createElement("li");
       newLi.innerHTML = `${i+1}: ${data[i].value}`;
       scores.appendChild(newLi);
     }
