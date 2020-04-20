@@ -144,8 +144,9 @@ export default class Game {
     this.ctx.font = "30px Monospace";
     this.ctx.fillText(`GAME OVER!`, this.WIDTH / 2 - 70, this.HEIGHT / 2 - 20);
     this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH / 2 - 60, this.HEIGHT / 2 + 20);
+    this.ctx.font = "20px Monospace";
+    this.ctx.fillText(`Reload the page to try again. You can do better than ${this.score}`, this.WIDTH / 2 - 300, this.HEIGHT / 2 + 60);
 
-    //
     // send score to backend
     let res = await fetch(this.site,
       {
