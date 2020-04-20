@@ -137,9 +137,9 @@ export default class Snake {
     this.body.map((part, i) => {
       if (i == this.parts - 1) {
         // head
-        this.ctx.fillStyle = "#569638"
-      } else { 
         this.ctx.fillStyle = "#5AB12F"
+      } else { 
+        this.ctx.fillStyle = "#569638"
       }
       this.ctx.fillRect(part.x, part.y, this.size, this.size);
     });
