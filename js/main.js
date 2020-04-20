@@ -74,8 +74,10 @@ function run() {
     
     ctx.fillStyle = "white";
     ctx.font = "20px Monospace";
-    ctx.fillText(`PaddySnake`, width / 2 - 20, height / 2 - 30);
-    ctx.fillText(`Press SPACE to start`, width / 2 -42, height / 2);
+    ctx.fillText(`PaddySnake`, width / 2 - 55, height / 2 - 40);
+    ctx.fillText(`----------`, width / 2 - 55, height / 2 - 10);
+    ctx.fillText(`Press SPACE to start`, width / 2 -102, height / 2 + 40 );
+    ctx.fillText(`Use WASD or arrow keys to move, space to pause / unpause`, width / 2 -312, height / 2 + 80 );
 
     game.iHandler.update();
 

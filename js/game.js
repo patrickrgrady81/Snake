@@ -6,6 +6,10 @@ export default class Game {
     this.HEIGHT = height;
     this.ctx = context;
 
+    this.localSite = "http://localhost:3000/api/v1/scores";
+    this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/scores";
+    this.site = this.herokuSite;
+
     this.loggedIn = true;
 
     this.iHandler = new inputHandler();
@@ -30,7 +34,6 @@ export default class Game {
 
   addScore() {
     this.score += 1;
-    // this.speed = Math.floor(this.score / 2);
     this.getNewSpeed();
   }
 
@@ -73,7 +76,6 @@ export default class Game {
   }
 
   showScore() {
-    // console.log(this.score);
     this.ctx.fillStyle = "white";
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH - 130, 40);
@@ -145,7 +147,7 @@ export default class Game {
 
     //
     // send score to backend
-    let res = await fetch("http://localhost:3000/api/v1/scores",
+    let res = await fetch(this.site,
       {
         method: "POST",
         headers: {
@@ -184,13 +186,21 @@ export default class Game {
   }
 
   async getHighScores() {
-    let response = await fetch("http://localhost:3000/api/v1/scores");
-    let data = await response.json()
-    this.loadHighScores(data);
+    try {
+      let response = await fetch(this.site);
+      let data = await response.json();
+      this.loadHighScores(data);
+    }
+    catch{
+      let scores = document.getElementById("highScoreList");
+      let newLi = document.createElement("li");
+      newLi.innerHTML = "Server Error: Server is probably not running, maybe you should check that :)"
+      scores.appendChild(newLi);
+    }
   }
 
   loadHighScores(data) { 
-    console.table(data);
+    console.log(data);
     let scores = document.getElementById("highScoreList");
     scores.innerHTML = "";
     let newLi = document.createElement("li");
