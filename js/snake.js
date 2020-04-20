@@ -3,7 +3,7 @@ export default class Snake {
     this.ctx = context;
 
     this.size = 16;
-    this.speed = { x: 0, y:0 };
+    this.speed = { x: 16, y:0 };
 
     this.head = {};
     this.body = [];

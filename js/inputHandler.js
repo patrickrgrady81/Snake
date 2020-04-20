@@ -3,8 +3,9 @@ import Game from "./game.js";
 
 
 export default class inputHandler {
-  constructor(snake) { 
-    // this.game = game;
+  constructor(snake, game) { 
+    this.game = game;
+
     this.snake = snake;
     this.keyMap = {
       // For WASD
@@ -47,22 +48,44 @@ export default class inputHandler {
 
   update() {
     if (this.pressedKeys.left) {
-      this.snake.moveLeft();
+      if (this.game) {
+        if (!this.game.mainMenuRunning) {
+          this.snake.moveLeft();
+        }
+      }
     }
     if (this.pressedKeys.right) {
-      this.snake.moveRight();
+      if (this.game) {
+        if (!this.game.mainMenuRunning) {
+          this.snake.moveRight();
+        }
+      }
     }
     if (this.pressedKeys.up) {
-      this.snake.moveUp();
+      if (this.game) {
+        if (!this.game.mainMenuRunning) {
+          this.snake.moveUp();
+        }
+      }
     }
     if (this.pressedKeys.down) {
-      this.snake.moveDown();
+      if (this.game) {
+        if (!this.game.mainMenuRunning) {
+          this.snake.moveDown();
+        }
+      }
     }
-    if (this.pressedKeys.space) { 
-      // if (this.game.mainMenuRunning) {
-      //   this.game.mainMenuRunning = false;
-      // }
-      this.snake.stop();
+    if (this.pressedKeys.space) {
+
+      if (this.game) {
+        if (this.game.mainMenuRunning) {
+          this.game.mainMenuRunning = false;
+        } else {
+          this.snake.stop();
+          // this.game.gameState[running] = false;
+          // this.game.gameState[paused] = true;
+        }
+      }
     }
   }
 }

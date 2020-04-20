@@ -1,12 +1,29 @@
+import inputHandler from "./inputHandler.js";
+
 export default class Game {
   constructor(width, height, context) {
     this.WIDTH = width;
     this.HEIGHT = height;
     this.ctx = context;
+
+    this.iHandler = new inputHandler();
+
     this.speed = 0;
     this.score = 0;
     this.mainMenuRunning = true;
     this.highScores = null;
+
+    this.thisSecond = 0;
+    this.frames = 0;
+    this.FPS = 0;
+    this.exit = true;
+
+    this.gameState = {
+      mainMenu: true,
+      running: false,
+      paused: false,
+      gameOver: false
+    }
   }
 
   addScore() {
@@ -125,6 +142,7 @@ export default class Game {
     this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH / 2 - 60, this.HEIGHT / 2 + 20);
   }
 
+<<<<<<< HEAD
 
   // Main Menu -------------------------------------------------------
   // -----------------------------------------------------------------
@@ -135,36 +153,13 @@ export default class Game {
   // -----------------------------------------------------------------
   // -----------------------------------------------------------------
   mainMenu() { 
+=======
+  prestart() { 
+>>>>>>> mainMenu
     this.login();
-    this.getHighScores()
-      .then(response => { 
-        this.highScores = response;
-      });
-    window.requestAnimationFrame(this.menuLoop.bind(this))
-  }
-
-  menuLoop() {
-    this.clearScreen();
-
-    // display high scores
-    if (this.highScores) {
-      for (let score in this.highScores) {
-        this.ctx.fillStyle = "white";
-        this.ctx.font = "25px Monospace";
-        let offset = 25 + 10;
-
-        this.ctx.fillText(`HIGH SCORES`, offset, offset);
-        offset += 50;
-        this.ctx.fillText(`${this.highScores[score].value}`, offset, offset + score * 40);
-      }
-  
-
-    }
-    window.requestAnimationFrame(this.menuLoop.bind(this));
-
-    // if (!this.mainMenuRunning) { return }
-
-      
+    let scores = this.getHighScores();
+    console.log(scores);
+    // put highScores in the box
   }
 
   async login() { 

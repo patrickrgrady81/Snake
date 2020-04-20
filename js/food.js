@@ -21,21 +21,6 @@ export default class Food{
       this.pos.y = this.size;
     }
 
-    // check to make sure it's not in the snake's body or head
-    // this.snake.body.map((part) => {
-    // if (this.pos.x >= part.x && this.pos.x >= part.x) { 
-    //   console.log();
-    //   // top left, top left
-    //   if (this.pos.x >= part.x && this.pos.x + this.size <= part.x + this.size) {
-    //     //bottom left
-    //   }
-          
-    // }
-    // });
-
-    // if (part.x)
-    // console.log(part.x);
-    // console.log(this.pos.y + this.size);
     this.snake.body.map((part) => {
       let topRightHit = false;
       let topLeftHit = false;
@@ -74,7 +59,7 @@ export default class Food{
         collision = true;
       }
       if (collision) { 
-        console.log("Wrong place");
+        // console.log("Wrong place");
         this.getPos();
       }
     });
