@@ -134,7 +134,13 @@ export default class Snake {
     //   this.ctx.fillRect(this.body[i].x, this.body[i].y, this.size, this.size);
       
     // }
-    this.body.map((part) => {
+    this.body.map((part, i) => {
+      if (i == this.parts - 1) {
+        // head
+        this.ctx.fillStyle = "#569638"
+      } else { 
+        this.ctx.fillStyle = "#5AB12F"
+      }
       this.ctx.fillRect(part.x, part.y, this.size, this.size);
     });
   }
