@@ -20,7 +20,8 @@ function run() {
 
   let delay = 80;
 
-  game.prestart();
+  game.login();
+  game.getHighScores();
   window.requestAnimationFrame(menuLoop);
   window.requestAnimationFrame(gameLoop);
 

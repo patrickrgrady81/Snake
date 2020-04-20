@@ -10,11 +10,18 @@
 <body>
 
   <div class="container">
-    <canvas id="game" width="800" height="600"></canvas>
-    <div id="highScores">
+    <canvas id="game" class="noShow" width="800" height="600"></canvas>
+    <div id="highScores" class="noShow">
       <ul id="highScoreList">
         <li id="highScoreText">High Scores</li>
       </ul>
+    </div>
+    <div id="form" class="show">
+      <form>
+        <label for= "email">Email:</label>
+        <input type="text" id="email">
+        <input type="submit" value = submit>
+      </form>
     </div>
   </div>
   

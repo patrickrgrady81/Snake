@@ -6,6 +6,8 @@ export default class Game {
     this.HEIGHT = height;
     this.ctx = context;
 
+    this.loggedIn = true;
+
     this.iHandler = new inputHandler();
 
     this.speed = 0;
@@ -159,13 +161,26 @@ export default class Game {
     
   }
 
-  prestart() { 
-    this.login();
-    this.getHighScores();
-  }
-
   async login() { 
     console.log("Logging in.... ");
+    
+    let canvas = document.getElementById("game");
+    let scores = document.getElementById("highScores");
+    let form = document.getElementById("form");
+
+    if (this.loggedIn) {
+      canvas.classList.remove("noShow");
+      canvas.classList.add("show");
+      scores.classList.remove("noShow");
+      scores.classList.add("show");
+      form.classList.add("noShow");
+      form.classList.remove("show");
+    } else { 
+      canvas.classList.add("noShow");
+      canvas.classList.remove("show");
+      form.classList.remove("noShow");
+      form.classList.add("show");
+    }
   }
 
   async getHighScores() {

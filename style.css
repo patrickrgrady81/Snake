@@ -17,7 +17,7 @@ body{
 #game{
   border: 2px solid black;
   margin-left: 100px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 #highScores{
@@ -28,7 +28,7 @@ body{
   color: white;
   font-family: monospace;
   margin-right: 100px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 #highScoreList li {
@@ -44,4 +44,22 @@ body{
 #highScoreList li:nth-child(11){
   margin-right: 1rem;
   margin-left: 1px;
+}
+
+#form {
+  width: 500px;
+  height: 500px;
+  background-color: midnightblue;
+  color: white;
+  border-radius: 8px;
+  /* justify-content: center; */
+  margin: 30px auto;
+}
+
+.noShow {
+  display: none;
+}
+
+.show {
+  display: block;
 }
