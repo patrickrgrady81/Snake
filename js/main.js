@@ -7,7 +7,7 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', () => { run() })
 
 function run() {
-  const version = "v0.2.9 (The Head Switch Update)"
+  const version = "v0.2.9 (The Stroke Update)"
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");

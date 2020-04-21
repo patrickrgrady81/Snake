@@ -141,6 +141,7 @@ export default class Snake {
       } else { 
         this.ctx.fillStyle = "#569638"
       }
+      this.ctx.strokeRect(part.x, part.y, this.size, this.size);
       this.ctx.fillRect(part.x, part.y, this.size, this.size);
     });
   }
