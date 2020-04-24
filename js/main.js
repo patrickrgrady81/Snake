@@ -46,8 +46,8 @@ function run() {
     })});
 
 
-  const versionName = "The Hey Look My Name Update";
-  const version = `v0.3.0 (${versionName})`;
+  const versionName = "The Like You Better Square Update";
+  const version = `v0.3.1 (${versionName})`;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");

@@ -71,9 +71,9 @@ export default class Food{
 
   draw() {
     this.ctx.fillStyle = "red";
-    // this.ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
-    this.ctx.beginPath();
-    this.ctx.arc(this.pos.x, this.pos.y, this.size/2, 0, 2 * Math.PI);
-    this.ctx.fill();
+    this.ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
+    // this.ctx.beginPath();
+    // this.ctx.arc(this.pos.x, this.pos.y, this.size/2, 0, 2 * Math.PI);
+    // this.ctx.fill();
   }
 }
