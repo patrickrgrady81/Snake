@@ -3,15 +3,13 @@ import Snake from "./snake.js"
 import inputHandler from "./inputHandler.js"
 import Food from "./food.js"
 
+let res = null;
+let username;
+let password;
 
 window.addEventListener('DOMContentLoaded', () => { run() })
 
 function run() {
-
-  let res = null;
-  let username;
-  let password;
-
   window.addEventListener("submit", (e) => {
     e.preventDefault();
     username = e.target[0].value;
