@@ -156,7 +156,8 @@ export default class Game {
           "Accept": "application/json"
         },
         body: JSON.stringify({
-          score: this.score
+          score: this.score,
+          user: this.username
         })
       }
     )
@@ -224,7 +225,6 @@ export default class Game {
   }
 
   draw(snake, food) { 
-    console.log(game.paused);
     if (this.paused) {
       pauseScreen();
     } else {

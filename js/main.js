@@ -47,7 +47,7 @@ function run() {
 
 
   const versionName = "The Hey Look My Name Update";
-  const version = `v0.2.13 (${versionName})`;
+  const version = `v0.3.0 (${versionName})`;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
