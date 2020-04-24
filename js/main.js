@@ -7,8 +7,8 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', () => { run() })
 
 function run() {
-  const versionName = "The Rename the Name Update";
-  const version = `v0.2.11 (${versionName})`;
+  const versionName = "The Apple is Round Update";
+  const version = `v0.2.12 (${versionName})`;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");

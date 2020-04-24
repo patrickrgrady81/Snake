@@ -8,7 +8,7 @@ export default class Game {
 
     this.localSite = "http://localhost:3000/api/v1/scores";
     this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/scores";
-    this.site = this.herokuSite;
+    this.site = this.localSite;
 
     this.loggedIn = true;
 
@@ -160,6 +160,7 @@ export default class Game {
       }
     )
     this.getHighScores();
+    // console.table(res.scores);
     
   }
 
