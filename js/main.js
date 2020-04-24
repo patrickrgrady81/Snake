@@ -7,9 +7,28 @@ let res = null;
 let username;
 let password;
 
+
+
 window.addEventListener('DOMContentLoaded', () => { run() })
 
 function run() {
+  let signin = document.getElementById("form");
+  let signup = document.getElementById("formSignUp");
+  
+  signin.addEventListener("click", (e) => {  
+    // switch to sign up form
+    signin.classList.add("noShow")
+    signin.classList.remove("show")
+    signup.classList.add("show")
+  })
+
+  signup.addEventListener("click", (e) => {  
+    // switch to sign up form
+    signin.classList.add("show")
+    signup.classList.remove("show")
+    signin.classList.add("noShow")
+  })
+
   window.addEventListener("submit", (e) => {
     e.preventDefault();
     username = e.target[0].value;
@@ -36,7 +55,12 @@ function run() {
         game.login();
         menuLoop();
       } else { 
-        console.log("Log In error!");
+        // get #form then add a child with a p that shows this message
+        const ourForm = document.getElementById("form");
+        const newP = document.createElement("p");
+        //newP.innerHTML = `Sorry couldn't log in, try again. I got username: ${data.sent.username}, password: ${data.sent.password}`;
+        newP.innerHTML = "Invalid username or password";
+        ourForm.appendChild(newP);
       }
     })
     .catch((err) => { 
