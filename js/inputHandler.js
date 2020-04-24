@@ -76,14 +76,11 @@ export default class inputHandler {
       }
     }
     if (this.pressedKeys.space) {
-
       if (this.game) {
         if (this.game.mainMenuRunning) {
           this.game.mainMenuRunning = false;
         } else {
           this.snake.stop();
-          // this.game.gameState[running] = false;
-          // this.game.gameState[paused] = true;
         }
       }
     }

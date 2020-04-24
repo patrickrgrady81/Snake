@@ -1,6 +1,7 @@
 export default class Snake { 
-  constructor(context) {
+  constructor(context, game) {
     this.ctx = context;
+    this.game = game;
 
     this.size = 16;
     this.speed = { x: 16, y:0 };
@@ -69,9 +70,11 @@ export default class Snake {
     if (this.moving()) {
       this.remeber = this.speed;
       this.speed = { x: 0, y: 0 };
+      game.paused = true;
     } else { 
       this.speed = this.remember;
       this.remeber = { x: 0, y: 0 };
+      game.paused = false;
     }
   }
   

@@ -10,7 +10,7 @@ export default class Game {
     this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/scores";
     this.site = this.localSite;
 
-    this.loggedIn = true;
+    this.loggedIn = false;
 
     this.iHandler = new inputHandler();
 
@@ -23,6 +23,7 @@ export default class Game {
     this.frames = 0;
     this.FPS = 0;
     this.exit = true;
+    this.paused = false;
 
     this.gameState = {
       mainMenu: true,
@@ -82,8 +83,8 @@ export default class Game {
     
   }
 
-  clearScreen() {
-    this.ctx.fillStyle = "MidnightBlue"
+  clearScreen(color) {
+    this.ctx.fillStyle = color;
     this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
   }
 
@@ -165,7 +166,10 @@ export default class Game {
   }
 
   async login() { 
-    console.log("Logging in.... ");
+    // console.log("Logging in.... ");
+
+
+
     
     let canvas = document.getElementById("game");
     let scores = document.getElementById("highScores");
@@ -201,7 +205,6 @@ export default class Game {
   }
 
   loadHighScores(data) { 
-    console.log(data);
     let scores = document.getElementById("highScoreList");
     scores.innerHTML = "";
     let newLi = document.createElement("li");
@@ -211,8 +214,24 @@ export default class Game {
 
     for (let i = 0; i < 10; i++) {
       newLi = document.createElement("li");
-      newLi.innerHTML = `${i+1}: ${data[i].value}`;
+      newLi.innerHTML = `${i+1}: ${data[i].name} ${data[i].score}`;
       scores.appendChild(newLi);
+    }
+  }
+
+  pauseScreen() { 
+    this.clearScreen("black");
+  }
+
+  draw(snake, food) { 
+    console.log(game.paused);
+    if (this.paused) {
+      pauseScreen();
+    } else {
+      this.clearScreen("midnightBlue");
+      food.draw();
+      snake.draw();
+      this.HUD();
     }
   }
 }

@@ -7,6 +7,43 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', () => { run() })
 
 function run() {
+
+  let res = null;
+  let username;
+  let password;
+
+  window.addEventListener("submit", (e) => {
+    e.preventDefault();
+    username = e.target[0].value;
+    password = e.target[1].value;
+    
+    res = fetch("http://localhost:3000/api/v1/users/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        username, password
+      })
+    }
+    ).then((res) => {
+      return res.json();
+    })
+      .then((data) => { 
+        console.log(data);
+      })
+      .catch((err) => { 
+        console.log(err);
+      })
+    
+    game.loggedIn = true;
+    game.login();
+    menuLoop();
+  });
+
+
   const versionName = "The Apple is Round Update";
   const version = `v0.2.12 (${versionName})`;
 
@@ -21,12 +58,11 @@ function run() {
   const input = new inputHandler(snake, game);
   const food = new Food(game, ctx, snake);
 
-  let delay = 80;
+  const color = "midnightBlue"
 
-  game.login();
+  let delay = 80;
+  // game.login();
   game.getHighScores();
-  window.requestAnimationFrame(menuLoop);
-  window.requestAnimationFrame(gameLoop);
 
   function gameLoop() {
 
@@ -51,18 +87,14 @@ function run() {
     }
 
     // draw
-    game.clearScreen();
-    food.draw();
-    snake.draw();
-    game.HUD();
+    game.draw(snake, food);
 
     delay = 110 - game.speed;
-
     setTimeout(gameLoop, delay);
   }
 
   function menuLoop() { 
-    game.clearScreen();
+    game.clearScreen(color);
 
     const sec = Math.floor(Date.now() / 1000);  // What is the second right now Date.now() gives miliseconds, /1000 gives 1 second
     if (sec != game.thisSecond) {                    // if it's not the same, then it's been a full second, so start the frame count over
@@ -83,19 +115,44 @@ function run() {
     ctx.fillText(`Press SPACE to start`, width / 2 -102, height / 2 + 40 );
     ctx.fillText(`Use WASD or arrow keys to move, space to pause / unpause`, width / 2 -312, height / 2 + 80 );
 
-    game.iHandler.update();
+    input.update();
 
     if (game.mainMenuRunning) {
-      requestAnimationFrame(menuLoop);
+      setTimeout(menuLoop, 100)
     } else { 
-      return;
+      gameLoop();
     }
   }
 
   function showFPS(FPS) {
-    game.clearScreen();
+    game.clearScreen(color);
     game.ctx.font = "20px Monospace";
     game.ctx.fillStyle = "white";
     game.ctx.fillText(`FPS: ${game.FPS}`, 10, game.HEIGHT-40);
+  }
+
+  function loginLoop() { 
+
+    game.clearScreen(color);
+
+    const sec = Math.floor(Date.now() / 1000);  // What is the second right now Date.now() gives miliseconds, /1000 gives 1 second
+    if (sec != game.thisSecond) {                    // if it's not the same, then it's been a full second, so start the frame count over
+      game.thisSecond = sec;
+      game.FPS = frames;
+      game.frames = 1;
+    } else {                                    // otherwise it still hasn't been a full second
+      game.frames++;
+    }
+    
+
+    // login here
+    game.login();
+
+    if (!game.loggedIn) {
+      loginLoop();
+    } else { 
+      menuLoop();
+      return;
+    }
   }
 }
