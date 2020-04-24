@@ -17,7 +17,7 @@ function run() {
     username = e.target[0].value;
     password = e.target[1].value;
     
-    res = fetch("http://localhost:3000/api/v1/users/login",
+    res = fetch("http://localhost:3000/api/v1/login",
     {
       method: "POST",
       headers: {
@@ -31,21 +31,23 @@ function run() {
     ).then((res) => {
       return res.json();
     })
-      .then((data) => { 
-        console.log(data);
-      })
-      .catch((err) => { 
-        console.log(err);
-      })
-    
-    game.loggedIn = true;
-    game.login();
-    menuLoop();
-  });
+    .then((data) => { 
+      if (data.user) {
+        game.loggedIn = true;
+        game.username = data.user.username;
+        game.login();
+        menuLoop();
+      } else { 
+        console.log("Log In error!");
+      }
+    })
+    .catch((err) => { 
+      console.log(err);
+    })});
 
 
-  const versionName = "The Apple is Round Update";
-  const version = `v0.2.12 (${versionName})`;
+  const versionName = "The Hey Look My Name Update";
+  const version = `v0.2.13 (${versionName})`;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
@@ -110,6 +112,8 @@ function run() {
     ctx.fillStyle = "white";
     ctx.font = "20px Monospace";
     ctx.fillText(`${version}`, 20, 20);
+    ctx.fillText(`Welcome ${game.username}`, width / 2 - 55, 120);
+    ctx.fillText(`----`, width / 2 - 15, 150);
     ctx.fillText(`PaddySnake`, width / 2 - 55, height / 2 - 40);
     ctx.fillText(`----------`, width / 2 - 55, height / 2 - 10);
     ctx.fillText(`Press SPACE to start`, width / 2 -102, height / 2 + 40 );
