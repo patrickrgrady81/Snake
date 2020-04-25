@@ -166,26 +166,33 @@ export default class Game {
     
   }
 
-  async login() { 
+  async login(type) { 
     // console.log("Logging in.... ");
 
 
-
-    
     let canvas = document.getElementById("game");
     let scores = document.getElementById("highScores");
-    let form = document.getElementById("form");
+    let form = document.getElementById("form-container");
 
+      
     if (this.loggedIn) {
+      console.table(signInForm.classList);
+      console.table(signUpForm.classList);
+
+      debugger
+
       canvas.classList.remove("noShow");
       canvas.classList.add("show");
       scores.classList.remove("noShow");
       scores.classList.add("show");
       form.classList.add("noShow");
       form.classList.remove("show");
-    } else { 
+
+    } else {
       canvas.classList.add("noShow");
       canvas.classList.remove("show");
+      scores.classList.remove("show");
+      scores.classList.add("noShow");
       form.classList.remove("noShow");
       form.classList.add("show");
     }

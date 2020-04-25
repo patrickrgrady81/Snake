@@ -8,10 +8,6 @@ body{
   grid-template-rows: 1fr;
   gap: 0px 0px;
   gap: 3px 3px;
-  /* grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr;
-  grid-column-gap: 0px;
-  grid-row-gap: 0px; */
 }
 
 #game{
@@ -46,16 +42,6 @@ body{
   margin-left: 1px;
 }
 
-#form, #formSignUp {
-  width: 500px;
-  height: 500px;
-  background-color: midnightblue;
-  color: white;
-  border-radius: 8px;
-  /* justify-content: center; */
-  margin: 30px auto;
-}
-
 .noShow {
   display: none;
 }
@@ -63,3 +49,17 @@ body{
 .show {
   display: block;
 }
+
+.form-container{
+  width: 500px;
+  height: 500px;
+  background-color: midnightblue;
+  color: white;
+  border-radius: 8px;
+  margin: 30px auto;
+}
+
+/* .form-container #formSignUp, .form-container #formSignIn  {
+  border: 10px solid green;
+  text-align: center;
+} */

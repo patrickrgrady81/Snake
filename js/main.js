@@ -12,64 +12,76 @@ let password;
 window.addEventListener('DOMContentLoaded', () => { run() })
 
 function run() {
-  let signin = document.getElementById("form");
-  let signup = document.getElementById("formSignUp");
-  
+  let signin = document.getElementById("signin-btn");
+  let signup = document.getElementById("signup-btn");
+  let signInForm = document.getElementById("form");
+  let signUpForm = document.getElementById("formSignUp");
+
   signin.addEventListener("click", (e) => {  
-    // switch to sign up form
-    signin.classList.add("noShow")
-    signin.classList.remove("show")
-    signup.classList.add("show")
+    signInForm.classList.add("noShow")
+    signInForm.classList.remove("show")
+    signUpForm.classList.add("show")
+    signUpForm.classList.remove("noShow")
   })
 
   signup.addEventListener("click", (e) => {  
-    // switch to sign up form
-    signin.classList.add("show")
-    signup.classList.remove("show")
-    signin.classList.add("noShow")
+    signInForm.classList.add("show")
+    signInForm.classList.remove("noShow")
+    signUpForm.classList.add("noShow")
+    signUpForm.classList.remove("show")
+
   })
 
   window.addEventListener("submit", (e) => {
     e.preventDefault();
-    username = e.target[0].value;
-    password = e.target[1].value;
-    
-    res = fetch("http://localhost:3000/api/v1/login",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify({
-        username, password
-      })
-    }
-    ).then((res) => {
-      return res.json();
-    })
-    .then((data) => { 
-      if (data.user) {
-        game.loggedIn = true;
-        game.username = data.user.username;
-        game.login();
-        menuLoop();
-      } else { 
-        // get #form then add a child with a p that shows this message
-        const ourForm = document.getElementById("form");
-        const newP = document.createElement("p");
-        //newP.innerHTML = `Sorry couldn't log in, try again. I got username: ${data.sent.username}, password: ${data.sent.password}`;
-        newP.innerHTML = "Invalid username or password";
-        ourForm.appendChild(newP);
+
+    if (e.target.id === "signInForm") {
+      username = e.target[0].value;
+      password = e.target[1].value;
+      
+      res = fetch("http://localhost:3000/api/v1/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          username, password
+        })
       }
-    })
-    .catch((err) => { 
-      console.log(err);
-    })});
+      ).then((res) => {
+        return res.json();
+      })
+      .then((data) => { 
+        if (data.user) {
+          game.loggedIn = true;
+          game.username = data.user.username;
+          game.login("Log In");
+          menuLoop();
+        } else { 
+          // get #form then add a child with a p that shows this message
+          const ourForm = document.getElementById("form");
+          const newP = document.createElement("p");
+          //newP.innerHTML = `Sorry couldn't log in, try again. I got username: ${data.sent.username}, password: ${data.sent.password}`;
+          newP.innerHTML = "Invalid username or password";
+          ourForm.appendChild(newP);
+        }
+      })
+      .catch((err) => { 
+        console.log(err);
+      })
+    } else { 
+      console.log("Sign Up");
+    }
 
 
-  const versionName = "The Like You Better Square Update";
-  const version = `v0.3.1 (${versionName})`;
+
+  });
+
+
+  const versionName = "The Log Me In Update";
+  const version = `v0.4.0 (${versionName})`;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
