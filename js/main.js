@@ -38,6 +38,8 @@ const color = "midnightBlue"
     signIn.classList.toggle("show")
     signUp.classList.toggle("noShow")
     signUp.classList.toggle("show")
+    document.getElementById("errorSignIn").innerHTML = "";
+    document.getElementById("errorSignUp").innerHTML = "";
   }
   
   window.addEventListener("submit", (e) => {
@@ -69,11 +71,8 @@ const color = "midnightBlue"
           menuLoop();
         } else { 
           // get #form then add a child with a p that shows this message
-          const ourForm = document.getElementById("signInForm");
-          const newP = document.createElement("p");
-          newP.innerHTML = "Invalid username or password";
-          newP.classList.add("newP");
-          ourForm.appendChild(newP);
+          let error = document.getElementById("errorSignIn")
+          error.innerHTML = "Invalid username or password";
         }
       })
       .catch((err) => { 

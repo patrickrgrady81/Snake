@@ -50,16 +50,62 @@ body{
   display: block;
 }
 
-.form-container{
+#form-container{
   width: 500px;
   height: 500px;
   background-color: midnightblue;
   color: white;
   border-radius: 8px;
   margin: 30px auto;
+  text-align: center;
 }
 
-/* .form-container #formSignUp, .form-container #formSignIn  {
-  border: 10px solid green;
+#form-container #signIn, #form-container #signUp  {
+  font-family: monospace;
+  font-size: larger;
+  margin: 0;
+  padding: 100px 0;
   text-align: center;
-} */
+}
+
+#signInForm > h2, #signUpForm > h2 {
+  text-decoration: underline;
+}
+
+.submit-btn {
+  margin-bottom: 2rem;
+}
+
+.error {
+  color: red;
+  margin-top: 2rem;
+}
+
+.submit-btn, #signin-btn, #signup-btn {
+  font-family: monospace;
+  font-size: large;
+
+}
+
+#signin-btn, #signup-btn {
+  background-color: cornflowerblue;
+  text-decoration: none;
+  border: 3px solid black;
+  border-radius: 8px;
+  padding: 5px 70px;
+}
+
+a#signin-btn, a#signup-btn {
+  color: black;
+}
+
+.submit-btn:visited, #signin-btn:visited, #signup-btn:visited {
+  color: white;
+}
+
+.window {
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 0 0;
+  background-color: darkblue;
+}
