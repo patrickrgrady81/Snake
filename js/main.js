@@ -6,8 +6,8 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', run);
 
 function run() {
-const versionName = "The Style Update";
-const version = `v0.4.3 (${versionName})`;
+const versionName = "The Anonymous Update";
+const version = `v0.5.1 (${versionName})`;
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
@@ -41,6 +41,43 @@ const color = "midnightBlue"
     document.getElementById("errorSignIn").innerHTML = "";
     document.getElementById("errorSignUp").innerHTML = "";
   }
+
+  let anon = document.getElementById("anon-btn");
+  anon.addEventListener("click", (e) => { 
+    let username = "Anonymous";
+    let password = "password";
+
+    let res = fetch("http://localhost:3000/api/v1/login",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        username, password
+      })
+    }
+    ).then((res) => {
+      return res.json();
+    })
+    .then((data) => { 
+      if (data.user) {
+        game.loggedIn = true;
+        game.username = data.user.username;
+        game.login();
+        menuLoop();
+      } else { 
+        // get #form then add a child with a p that shows this message
+        let error = document.getElementById("errorSignIn")
+        error.innerHTML = "Invalid username or password";
+      }
+    })
+    .catch((err) => { 
+      console.log(err);
+    })
+ 
+  });
   
   window.addEventListener("submit", (e) => {
     e.preventDefault();

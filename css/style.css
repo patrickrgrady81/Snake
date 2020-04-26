@@ -78,7 +78,7 @@ body{
 
 .error {
   color: red;
-  margin-top: 2rem;
+  margin: 2rem 0;
 }
 
 .submit-btn, #signin-btn, #signup-btn {
@@ -87,7 +87,7 @@ body{
 
 }
 
-#signin-btn, #signup-btn {
+#signin-btn, #signup-btn, #anon-btn {
   background-color: cornflowerblue;
   text-decoration: none;
   border: 3px solid black;
@@ -95,11 +95,11 @@ body{
   padding: 5px 70px;
 }
 
-a#signin-btn, a#signup-btn {
+a#signin-btn, a#signup-btn, #anon-btn {
   color: black;
 }
 
-.submit-btn:visited, #signin-btn:visited, #signup-btn:visited {
+.submit-btn:visited, #signin-btn:visited, #signup-btn:visited, #anon-btn:visited {
   color: white;
 }
 
@@ -107,5 +107,9 @@ a#signin-btn, a#signup-btn {
   border: 2px solid white;
   border-radius: 8px;
   padding: 0 0;
+  background-color: darkblue;
+}
+
+#anon-btn {
   background-color: darkblue;
 }
