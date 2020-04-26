@@ -6,23 +6,25 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', run);
 
 function run() {
-const versionName = "The Anonymous Update";
-const version = `v0.5.1 (${versionName})`;
+  const versionName = "The Show the Version Update";
+  const version = `v0.5.3 (${versionName})`;
 
-const canvas = document.getElementById("game");
-const ctx = canvas.getContext("2d");
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
 
-const width = canvas.width;
-const height = canvas.height;
+  const width = canvas.width;
+  const height = canvas.height;
 
-const game = new Game(width, height, ctx);
-const snake = new Snake(ctx, game);
-const input = new inputHandler(snake, game);
-const food = new Food(game, ctx, snake);
+  const game = new Game(width, height, ctx);
+  const snake = new Snake(ctx, game);
+  const input = new inputHandler(snake, game);
+  const food = new Food(game, ctx, snake);
 
-const color = "midnightBlue"
+  const color = "midnightBlue"
   let delay = 80;
   game.getHighScores();
+  let v = document.getElementsByClassName("version");
+  populateVersion(v);
 
   let signin = document.getElementById("signin-btn");
   let signup = document.getElementById("signup-btn");
@@ -31,6 +33,13 @@ const color = "midnightBlue"
 
   signin.addEventListener("click", switchMenus)
   signup.addEventListener("click", switchMenus);
+
+  function populateVersion(v) { 
+    for (let i = 0; i < v.length; i++) { 
+      console.log(v[i]);
+      v[i].innerHTML = version;
+    }
+  }
 
   function switchMenus(e) { 
     e.preventDefault();
