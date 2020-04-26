@@ -42,6 +42,7 @@ const color = "midnightBlue"
     document.getElementById("errorSignUp").innerHTML = "";
   }
 
+  // sign in as Anonymous
   let anon = document.getElementById("anon-btn");
   anon.addEventListener("click", (e) => { 
     let username = "Anonymous";
@@ -78,7 +79,8 @@ const color = "midnightBlue"
     })
  
   });
-  
+
+  // When Submit is clicked
   window.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -100,13 +102,15 @@ const color = "midnightBlue"
       ).then((res) => {
         return res.json();
       })
-      .then((data) => { 
+        .then((data) => { 
+        // If we get a user back, then sign in was successful
         if (data.user) {
           game.loggedIn = true;
           game.username = data.user.username;
           game.login();
           menuLoop();
         } else { 
+          // unsuccessful sign in
           // get #form then add a child with a p that shows this message
           let error = document.getElementById("errorSignIn")
           error.innerHTML = "Invalid username or password";
