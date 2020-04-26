@@ -6,9 +6,9 @@ export default class Game {
     this.HEIGHT = height;
     this.ctx = context;
 
-    this.localSite = "http://localhost:3000/api/v1/scores";
-    this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/scores";
-    this.site = this.localSite;
+    this.localSite = "http://localhost:3000/api/v1/";
+    this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/";
+    this.site = this.herokuSite;
 
     this.loggedIn = false;
 
@@ -148,7 +148,7 @@ export default class Game {
     this.ctx.fillText(`Reload the page to try again. You can do better than ${this.score}`, this.WIDTH / 2 - 300, this.HEIGHT / 2 + 60);
 
     // send score to backend
-    let res = await fetch(this.site,
+    let res = await fetch(this.site.concat("scores"),
       {
         method: "POST",
         headers: {
@@ -198,7 +198,7 @@ export default class Game {
 
   async getHighScores() {
     try {
-      let response = await fetch(this.site);
+      let response = await fetch(this.site.concat("scores"));
       let data = await response.json();
       this.loadHighScores(data);
     }

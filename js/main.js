@@ -46,9 +46,9 @@ const color = "midnightBlue"
   let anon = document.getElementById("anon-btn");
   anon.addEventListener("click", (e) => { 
     let username = "Anonymous";
-    let password = "password";
+    let password = "password"; 
 
-    let res = fetch("http://localhost:3000/api/v1/login",
+    let res = fetch(game.site.concat("login"),
     {
       method: "POST",
       headers: {
@@ -88,7 +88,7 @@ const color = "midnightBlue"
       let username = e.target[0].value;
       let password = e.target[1].value;
       
-      let res = fetch("http://localhost:3000/api/v1/login",
+      let res = fetch(game.site.concat("login"),
       {
         method: "POST",
         headers: {
