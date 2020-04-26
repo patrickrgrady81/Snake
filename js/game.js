@@ -8,7 +8,7 @@ export default class Game {
 
     this.localSite = "http://localhost:3000/api/v1/";
     this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/";
-    this.site = this.localSite;
+    this.site = this.herokuSite;
 
     this.loggedIn = false;
 

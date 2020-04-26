@@ -87,6 +87,10 @@ body{
 
 }
 
+#signup-btn {
+  margin-top: 0px;
+}
+
 #signin-btn, #signup-btn, #anon-btn {
   background-color: cornflowerblue;
   text-decoration: none;

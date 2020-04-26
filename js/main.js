@@ -6,8 +6,8 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', run);
 
 function run() {
-  const versionName = "The Show the Version Update";
-  const version = `v0.5.3 (${versionName})`;
+  const versionName = "The I <3 Heroku Update";
+  const version = `v0.5.4 (${versionName})`;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
