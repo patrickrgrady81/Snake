@@ -179,8 +179,6 @@ export default class Game {
       console.table(signInForm.classList);
       console.table(signUpForm.classList);
 
-      debugger
-
       canvas.classList.remove("noShow");
       canvas.classList.add("show");
       scores.classList.remove("noShow");
