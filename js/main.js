@@ -158,7 +158,7 @@ function run() {
     // draw
     game.draw(snake, food);
 
-    delay = 110 - game.speed;
+    delay = 150 - game.speed;
     setTimeout(gameLoop, delay);
   }
 
