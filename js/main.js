@@ -6,8 +6,8 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', run);
 
 function run() {
-const versionName = "The Log Me In Update";
-const version = `v0.4.0 (${versionName})`;
+const versionName = "The Style Update";
+const version = `v0.4.3 (${versionName})`;
 
 const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
