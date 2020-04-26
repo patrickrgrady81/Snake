@@ -45,6 +45,7 @@ const color = "midnightBlue"
   // sign in as Anonymous
   let anon = document.getElementById("anon-btn");
   anon.addEventListener("click", (e) => { 
+    e.preventDefault();
     let username = "Anonymous";
     let password = "password"; 
 
