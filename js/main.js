@@ -6,9 +6,6 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', run);
 
 function run() {
-  const versionName = "The Move Me a Little Update";
-  const version = `v0.5.5 (${versionName})`;
-
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
 
@@ -19,6 +16,10 @@ function run() {
   const snake = new Snake(ctx, game);
   const input = new inputHandler(snake, game);
   const food = new Food(game, ctx, snake);
+
+  const localResetDb = "4/26/2020";
+  const versionName = `The Sign Me Up Update`;
+  const version = `v0.6.0 (${versionName})`;
 
   const color = "midnightBlue"
   let delay = 80;
@@ -36,7 +37,6 @@ function run() {
 
   function populateVersion(v) { 
     for (let i = 0; i < v.length; i++) { 
-      console.log(v[i]);
       v[i].innerHTML = version;
     }
   }
@@ -130,7 +130,45 @@ function run() {
         console.log(err);
       })
     } else { 
-      console.log("Sign Up");
+      let username = e.target[0].value;
+      let email = e.target[0].value;
+      let password = e.target[0].value;
+      let password_confirmation = e.target[1].value;
+
+      let res = fetch(game.site.concat("signup"),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          username, email, password, password_confirmation
+        })
+      }
+      ).then((res) => {
+        return res.json();
+      })
+        .then((data) => { 
+        // If we get a user back, then sign up was successful
+        if (data.user) {
+          game.loggedIn = true;
+          game.username = data.user.username;
+          game.login();
+          menuLoop();
+        } else { 
+          // unsuccessful sign up
+          // get #form then add a child with a p that shows this message
+          let error = document.getElementById("errorSignUp")
+          error.innerHTML = "Sign Up Unceccessful";
+        }
+      })
+      .catch((err) => { 
+        console.log(err);
+      })
+
+
+
     }
   });
 
