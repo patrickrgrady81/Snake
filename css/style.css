@@ -52,11 +52,11 @@ body{
 
 #form-container{
   width: 500px;
-  height: 500px;
+  height: 600px;
   background-color: midnightblue;
   color: white;
   border-radius: 8px;
-  margin: 30px auto;
+  margin: 0px auto;
   text-align: center;
 }
 
@@ -107,7 +107,13 @@ a#signin-btn, a#signup-btn, #anon-btn {
   color: white;
 }
 
+#signIn, #signUp {
+  margin: 0;
+  padding: 0;
+}
+
 .window {
+  margin: 0;
   border: 2px solid white;
   border-radius: 8px;
   padding: 0 0;
@@ -116,4 +122,14 @@ a#signin-btn, a#signup-btn, #anon-btn {
 
 #anon-btn {
   background-color: darkblue;
+}
+ 
+#anon-btn > a {
+  color:white;
+  text-decoration: none;
+}
+.version {
+  padding: 0;
+  margin: 0;
+  text-align: left;
 }

@@ -9,8 +9,8 @@
 
 <body>
   <div class="form-container show" id="form-container">
+    <p class="version"></p>
     <div id="signIn" class="show">
-      <p class="version"></p>
       <form id="signInForm">
         <div class="window">
           <h2>Sign In</h2>
@@ -19,15 +19,15 @@
           <label for= "password">Password:</label>
           <input type="password" id="password" autocomplete="current-password"><br><br>
           <input type="submit" value ="Submit" class="submit-btn"><br>
+          <a href="#" id="signin-btn">Sign Up</a>
         </div>
-        <!-- <input type="button" value ="Sign Up" id="signin-btn"> -->
-        <a href="#" id="signin-btn">Sign Up</a>
         <p class="error" id="errorSignIn"></p>
-        <a href="#" id="anon-btn">Sign In as Anonymous</a>
+        <div id="anon-btn">
+        <a href="#">Sign In as Anonymous</a>
+        </div>
       </form>
     </div>
     <div id="signUp" class="noShow">
-      <p class="version"></p>
       <form id="signUpForm">
         <div class="window">
           <h2>Sign Up</h2>
@@ -43,7 +43,6 @@
           <a href="#" id="signup-btn">Sign In</a>
           <p class="error" id="errorSignUp"></p>
         </div>
-        <!-- <input type="button" value ="Sign In" id="signup-btn"> -->
       </form>
     </div>
   </div>

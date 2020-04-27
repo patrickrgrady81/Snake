@@ -6,8 +6,8 @@ import Food from "./food.js"
 window.addEventListener('DOMContentLoaded', run);
 
 function run() {
-  const versionName = "The I <3 Heroku Update";
-  const version = `v0.5.4 (${versionName})`;
+  const versionName = "The Move Me a Little Update";
+  const version = `v0.5.5 (${versionName})`;
 
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
@@ -158,7 +158,7 @@ function run() {
     // draw
     game.draw(snake, food);
 
-    delay = 150 - game.speed;
+    delay = 130 - game.speed;
     setTimeout(gameLoop, delay);
   }
 
