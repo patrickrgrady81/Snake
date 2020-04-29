@@ -218,7 +218,7 @@ function run() {
     ctx.font = "20px Monospace";
     ctx.fillText(`${version}`, 20, 20);
     ctx.fillText(`Welcome ${game.username}`, width / 2 - 55, 120);
-    ctx.fillText(`----`, width / 2 - 15, 150);
+    ctx.fillText(`Prees L to logout`, width / 2 - 100, 150);
     ctx.fillText(`PaddySnake`, width / 2 - 55, height / 2 - 40);
     ctx.fillText(`----------`, width / 2 - 55, height / 2 - 10);
     ctx.fillText(`Press ENTER to start`, width / 2 -102, height / 2 + 40 );

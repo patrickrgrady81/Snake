@@ -224,6 +224,7 @@ export default class Game {
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`PAUSED`, this.WIDTH / 2 - 37, this.HEIGHT / 2 - 40);
     this.ctx.fillText(`Press Space to Continue`, this.WIDTH / 2 - 135, this.HEIGHT / 2 + 40);
+    this.iHandler.update();
   }
 
   draw(snake, food) { 
@@ -236,5 +237,28 @@ export default class Game {
       snake.draw();
       this.HUD();
     }
+  }
+
+  logout() { 
+    let res = fetch(this.site.concat("logout"),
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+
+        body: JSON.stringify({
+          logout: true
+        })
+      }
+    ).then(res => {
+      return res.json();
+    }).then((data) => {
+      if (data.logout) {
+        location.reload();
+      }
+    });
+  
   }
 }
