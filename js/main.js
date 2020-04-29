@@ -221,7 +221,7 @@ function run() {
     ctx.fillText(`----`, width / 2 - 15, 150);
     ctx.fillText(`PaddySnake`, width / 2 - 55, height / 2 - 40);
     ctx.fillText(`----------`, width / 2 - 55, height / 2 - 10);
-    ctx.fillText(`Press SPACE to start`, width / 2 -102, height / 2 + 40 );
+    ctx.fillText(`Press ENTER to start`, width / 2 -102, height / 2 + 40 );
     ctx.fillText(`Use WASD or arrow keys to move, space to pause / unpause`, width / 2 -312, height / 2 + 80 );
 
     input.update();

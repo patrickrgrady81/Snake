@@ -20,14 +20,16 @@ export default class inputHandler {
       39: 'right',
       40: 'down',
 
-      32: 'space'
+      32: 'space',
+      13: 'enter'
     }
     this.pressedKeys = {
       left: false,
       right: false,
       up: false,
       down: false,
-      space: false
+      space: false,
+      enter: false
     }
 
     document.addEventListener("keydown", (event) => { 
@@ -78,9 +80,17 @@ export default class inputHandler {
     if (this.pressedKeys.space) {
       if (this.game) {
         if (this.game.mainMenuRunning) {
-          this.game.mainMenuRunning = false;
+          return;
         } else {
           this.snake.stop();
+        }
+      }
+    }
+
+    if (this.pressedKeys.enter) {
+      if (this.game) {
+        if (this.game.mainMenuRunning) {
+          this.game.mainMenuRunning = false;
         }
       }
     }

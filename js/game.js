@@ -24,13 +24,6 @@ export default class Game {
     this.FPS = 0;
     this.exit = true;
     this.paused = false;
-
-    this.gameState = {
-      mainMenu: true,
-      running: false,
-      paused: false,
-      gameOver: false
-    }
   }
 
   addScore() {
@@ -226,12 +219,17 @@ export default class Game {
   }
 
   pauseScreen() { 
-    this.clearScreen("black");
+    this.clearScreen("midnightBlue");
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "20px Monospace";
+    this.ctx.fillText(`PAUSED`, this.WIDTH / 2 - 37, this.HEIGHT / 2 - 40);
+    this.ctx.fillText(`Press Space to Continue`, this.WIDTH / 2 - 135, this.HEIGHT / 2 + 40);
   }
 
   draw(snake, food) { 
-    if (this.paused) {
-      pauseScreen();
+    console.log(game.paused);
+    if (game.paused) {
+      this.pauseScreen();
     } else {
       this.clearScreen("midnightBlue");
       food.draw();
