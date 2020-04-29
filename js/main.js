@@ -18,8 +18,8 @@ function run() {
   const food = new Food(game, ctx, snake);
 
   const localResetDb = "4/26/2020";
-  const versionName = `The Sign Me Up Update`;
-  const version = `v0.6.0 (${versionName})`;
+  const versionName = `The Refactor and Validate Update`;
+  const version = `v0.6.2 (${versionName})`;
 
   const color = "midnightBlue"
   let delay = 80;
@@ -41,6 +41,13 @@ function run() {
     }
   }
 
+  function loginAndStart(data) { 
+    game.loggedIn = true;
+    game.username = data.user.username;
+    game.login();
+    menuLoop();
+  }
+
   function switchMenus(e) { 
     e.preventDefault();
     signIn.classList.toggle("noShow")
@@ -55,7 +62,7 @@ function run() {
   let anon = document.getElementById("anon-btn");
   anon.addEventListener("click", (e) => { 
     e.preventDefault();
-    let username = "Anonymous";
+    let username = "anonymous";
     let password = "password"; 
 
     let res = fetch(game.site.concat("login"),
@@ -74,10 +81,7 @@ function run() {
     })
     .then((data) => { 
       if (data.user) {
-        game.loggedIn = true;
-        game.username = data.user.username;
-        game.login();
-        menuLoop();
+        loginAndStart(data);
       } else { 
         // get #form then add a child with a p that shows this message
         let error = document.getElementById("errorSignIn")
@@ -95,7 +99,7 @@ function run() {
     e.preventDefault();
 
     if (e.target.id === "signInForm") {
-      let username = e.target[0].value;
+      let username = e.target[0].value.toLowerCase();
       let password = e.target[1].value;
       
       let res = fetch(game.site.concat("login"),
@@ -115,10 +119,7 @@ function run() {
         .then((data) => { 
         // If we get a user back, then sign in was successful
         if (data.user) {
-          game.loggedIn = true;
-          game.username = data.user.username;
-          game.login();
-          menuLoop();
+          loginAndStart(data)
         } else { 
           // unsuccessful sign in
           // get #form then add a child with a p that shows this message
@@ -130,10 +131,10 @@ function run() {
         console.log(err);
       })
     } else { 
-      let username = e.target[0].value;
-      let email = e.target[0].value;
-      let password = e.target[0].value;
-      let password_confirmation = e.target[1].value;
+      let username = e.target[0].value.toLowerCase();
+      let email = e.target[1].value.toLowerCase();
+      let password = e.target[2].value;
+      let password_confirmation = e.target[3].value;
 
       let res = fetch(game.site.concat("signup"),
       {
@@ -152,15 +153,16 @@ function run() {
         .then((data) => { 
         // If we get a user back, then sign up was successful
         if (data.user) {
-          game.loggedIn = true;
-          game.username = data.user.username;
-          game.login();
-          menuLoop();
+          loginAndStart(data)
         } else { 
           // unsuccessful sign up
           // get #form then add a child with a p that shows this message
           let error = document.getElementById("errorSignUp")
-          error.innerHTML = "Sign Up Unceccessful";
+          if (data.error) { 
+            error.innerHTML = data.error;
+          } else {
+            error.innerHTML = "Invalid username or password";
+          }
         }
       })
       .catch((err) => { 
