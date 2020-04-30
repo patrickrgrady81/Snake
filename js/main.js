@@ -23,9 +23,17 @@ function run() {
 
   const color = "midnightBlue"
   let delay = 80;
-  game.getHighScores();
   let v = document.getElementsByClassName("version");
   populateVersion(v);
+
+  checkForSession();
+  game.getHighScores();
+
+  
+
+  // ===============
+  // Event Listeners
+  // ===============
 
   let signin = document.getElementById("signin-btn");
   let signup = document.getElementById("signup-btn");
@@ -34,29 +42,6 @@ function run() {
 
   signin.addEventListener("click", switchMenus)
   signup.addEventListener("click", switchMenus);
-
-  function populateVersion(v) { 
-    for (let i = 0; i < v.length; i++) { 
-      v[i].innerHTML = version;
-    }
-  }
-
-  function loginAndStart(data) { 
-    game.loggedIn = true;
-    game.username = data.user.username;
-    game.login();
-    menuLoop();
-  }
-
-  function switchMenus(e) { 
-    e.preventDefault();
-    signIn.classList.toggle("noShow")
-    signIn.classList.toggle("show")
-    signUp.classList.toggle("noShow")
-    signUp.classList.toggle("show")
-    document.getElementById("errorSignIn").innerHTML = "";
-    document.getElementById("errorSignUp").innerHTML = "";
-  }
 
   // sign in as Anonymous
   let anon = document.getElementById("anon-btn");
@@ -168,12 +153,13 @@ function run() {
       .catch((err) => { 
         console.log(err);
       })
-
-
-
     }
   });
 
+
+  // =========
+  // Functions
+  // =========
 
   function gameLoop() {
 
@@ -231,5 +217,47 @@ function run() {
     } else { 
       gameLoop();
     }
+  }
+
+  function loginAndStart(data) { 
+    game.loggedIn = true;
+    game.username = data.user.username;
+    game.login();
+    menuLoop();
+  }
+
+  function switchMenus(e) { 
+    e.preventDefault();
+    signIn.classList.toggle("noShow")
+    signIn.classList.toggle("show")
+    signUp.classList.toggle("noShow")
+    signUp.classList.toggle("show")
+    document.getElementById("errorSignIn").innerHTML = "";
+    document.getElementById("errorSignUp").innerHTML = "";
+  }
+
+  function populateVersion(v) { 
+    for (let i = 0; i < v.length; i++) { 
+      v[i].innerHTML = version;
+    }
+  }
+
+  function checkForSession() { 
+
+    let res = fetch(game.site.concat("check"))
+      .then(res => { 
+        return res.json();
+      })
+      .then(data => {
+        if (data.session) {
+          console.log("There is a session");
+          loginAndStart(data);
+        } else { 
+          console.log(`No session data: ${data.session}`);
+        }
+      })
+      .catch(err => { 
+        console.log(err);
+      })
   }
 }
