@@ -155,14 +155,9 @@ export default class Game {
       }
     )
     this.getHighScores();
-    // console.table(res.scores);
-    
   }
 
   async login(type) { 
-    // console.log("Logging in.... ");
-
-
     let canvas = document.getElementById("game");
     let scores = document.getElementById("highScores");
     let form = document.getElementById("form-container");

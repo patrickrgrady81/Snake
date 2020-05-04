@@ -73,7 +73,7 @@ export default class Snake {
       game.paused = true;
     } else { 
       this.speed = this.remember;
-      this.remeber = { x: 0, y: 0 };
+      // this.remeber = { x: 0, y: 0 };
       game.paused = false;
     }
   }
@@ -87,9 +87,6 @@ export default class Snake {
   }
 
   eat(food) { 
-    // if (this.head.x)
-    // console.log(this.head.x);
-    // console.log(food.pos.y + food.size);
     let topRightHit = false;
     let topLeftHit = false;
     let topHit = false;
@@ -99,28 +96,21 @@ export default class Snake {
     let collision = false;
 
     if (this.head.x + this.size <= food.pos.x + food.size && this.head.x + this.size >= food.pos.x) {
-      // console.log("Top Right");
       topRightHit = true;
     }
     if (this.head.x >= food.pos.x && this.head.x <= food.pos.x + food.size) { 
-      // console.log("Top Left");
       topLeftHit = true;
     }
     if (topRightHit || topLeftHit) {
-      // console.log("Top Hit");
       topHit = true;
     }
-
     if (this.head.y >= food.pos.y && this.head.y <= food.pos.y + food.size ) { 
-      // console.log("Left Side Hit");
       leftSideHit = true;
     }
     if (this.head.y + this.size >= food.pos.y && this.head.y + this.size <= food.pos.y + food.size ) { 
-      // console.log("Right Side Hit");
       rightSideHit = true;
     }
     if (leftSideHit || rightSideHit)
-      // console.log("Side Hit");
       sideHit = true;
     
     if (sideHit && topHit) { 
@@ -132,11 +122,7 @@ export default class Snake {
   
   draw() { 
     this.ctx.fillStyle = "green";
-    // loop for all pieces
-    // for (let i = 0; i <= this.parts-1; i++) {
-    //   this.ctx.fillRect(this.body[i].x, this.body[i].y, this.size, this.size);
-      
-    // }
+
     this.body.map((part, i) => {
       if (i == this.parts - 1) {
         // head

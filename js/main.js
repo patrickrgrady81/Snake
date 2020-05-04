@@ -107,7 +107,6 @@ function run() {
           loginAndStart(data)
         } else { 
           // unsuccessful sign in
-          // get #form then add a child with a p that shows this message
           let error = document.getElementById("errorSignIn")
           error.innerHTML = "Invalid username or password";
         }
@@ -209,6 +208,7 @@ function run() {
     ctx.fillText(`----------`, width / 2 - 55, height / 2 - 10);
     ctx.fillText(`Press ENTER to start`, width / 2 -102, height / 2 + 40 );
     ctx.fillText(`Use WASD or arrow keys to move, space to pause / unpause`, width / 2 -312, height / 2 + 80 );
+    ctx.fillText(`Caution, pausing may kill you when you return...`, width / 2 -285, height / 2 + 120 );
 
     input.update();
 
