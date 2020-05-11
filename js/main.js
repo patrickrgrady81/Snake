@@ -242,9 +242,9 @@ function run() {
     }
   }
 
-  function checkForSession() { 
+  function checkForSession() {
 
-    let res = fetch(game.site.concat("check"))
+    let res = fetch(game.site.concat("check"), {credentials: "include"})
       .then(res => { 
         return res.json();
       })
