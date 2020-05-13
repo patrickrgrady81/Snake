@@ -46,7 +46,6 @@ export default class Game {
     
     this.ctx.fillStyle = "white";
     this.ctx.font = "20px Monospace";
-    this.ctx.fillText(`${this.version}`, 20, 20);
     this.ctx.fillText(`Welcome ${this.username}`, this.WIDTH / 2 - 55 - this.username.length * 5, 120);
     this.ctx.fillText(`Prees L to logout`, this.WIDTH / 2 - 100, 150);
     this.ctx.fillText(`PaddySnake`, this.WIDTH / 2 - 55, this.HEIGHT / 2 - 40);
