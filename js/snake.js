@@ -1,7 +1,6 @@
 export default class Snake { 
-  constructor(context, game) {
+  constructor(context) {
     this.ctx = context;
-    this.game = game;
 
     this.size = 16;
     this.speed = { x: 16, y:0 };
@@ -11,9 +10,11 @@ export default class Snake {
     this.parts = 3;
     this.remember = {x: 16, y: 0};
     this.createBody();
+
+    this.paused = false;
     }
 
-  createBody() { 
+  createBody = () => { 
     this.head = { x: 160, y: 100 };
     for (let i = this.parts - 1; i > 0; i--){
       let x = this.head.x - this.size * i;
@@ -23,7 +24,7 @@ export default class Snake {
     this.body.push(this.head);
   }
 
-  grow() {
+  grow = () => {
     this.parts++;
     if (this.moving()) {
       if (this.speed.x > 0) {
@@ -38,47 +39,35 @@ export default class Snake {
     }
   }
 
-  moveLeft() {
+  moveLeft = () => {
     if (this.speed.y != 0) {
       this.speed.x = -this.size;
       this.speed.y = 0;
     }
   }
   
-  moveRight() {
+  moveRight = () => {
     if (this.speed.y != 0) {
       this.speed.x = this.size;
       this.speed.y = 0;
     }
   }
 
-  moveUp() {
+  moveUp = () => {
     if (this.speed.x != 0) {
       this.speed.y = -this.size;
       this.speed.x = 0;
     }
   }
   
-  moveDown() {
+  moveDown = () => {
     if (this.speed.x != 0) {
       this.speed.y = this.size;
       this.speed.x = 0;
     }
   }
-
-  stop() {
-    if (this.moving()) {
-      this.remeber = this.speed;
-      this.speed = { x: 0, y: 0 };
-      game.paused = true;
-    } else { 
-      this.speed = this.remember;
-      // this.remeber = { x: 0, y: 0 };
-      game.paused = false;
-    }
-  }
   
-  hitSelf() { 
+  hitSelf = () => { 
     for (let i = 0; i < this.parts - 2; i++) { 
       if (this.body[i].x == this.head.x && this.body[i].y == this.head.y) { 
         return true
@@ -86,7 +75,7 @@ export default class Snake {
     }
   }
 
-  eat(food) { 
+  eat = (food) => { 
     let topRightHit = false;
     let topLeftHit = false;
     let topHit = false;
@@ -120,7 +109,7 @@ export default class Snake {
   }
 
   
-  draw() { 
+  draw = () => { 
     this.ctx.fillStyle = "green";
 
     this.body.map((part, i) => {
@@ -135,14 +124,14 @@ export default class Snake {
     });
   }
 
-  moving() { 
+  moving = () => { 
     if (this.speed.x != 0 || this.speed.y != 0) {
       return true;
     }
     return false;
   }
 
-  update() { 
+  update = () => { 
     // loop for all pieces
     for (let i = 0; i < this.parts - 1; i++) {
       if (this.moving()) {

@@ -1,10 +1,14 @@
-import inputHandler from "./inputHandler.js";
+import Snake from "./snake.js"
+import inputHandler from "./inputHandler.js"
+import Food from "./food.js"
 
 export default class Game {
   constructor(width, height, context) {
     this.WIDTH = width;
     this.HEIGHT = height;
     this.ctx = context;
+    this.snake = new Snake(this.ctx);
+    this.food = new Food(this.ctx, this.snake, this.WIDTH, this.HEIGHT);
 
     this.localSite = "http://localhost:3000/api/v1/";
     this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/";
@@ -12,7 +16,7 @@ export default class Game {
 
     this.loggedIn = false;
 
-    this.iHandler = new inputHandler();
+    this.iHandler = new inputHandler(this.snake, this);
 
     this.speed = 0;
     this.score = 0;
@@ -24,14 +28,74 @@ export default class Game {
     this.FPS = 0;
     this.exit = true;
     this.paused = false;
+    this.color = "midnightBlue"
+    this.delay = 80;
   }
 
-  addScore() {
+  menuLoop = () => { 
+    this.clearScreen(this.color);
+
+    const sec = Math.floor(Date.now() / 1000);  // What is the second right now Date.now() gives miliseconds, /1000 gives 1 second
+    if (sec != this.thisSecond) {                    // if it's not the same, then it's been a full second, so start the frame count over
+      this.thisSecond = sec;
+      this.FPS = frames;
+      this.frames = 1;
+    } else {                                    // otherwise it still hasn't been a full second
+      this.frames++;
+    }
+    
+    this.ctx.fillStyle = "white";
+    this.ctx.font = "20px Monospace";
+    this.ctx.fillText(`${this.version}`, 20, 20);
+    this.ctx.fillText(`Welcome ${this.username}`, this.WIDTH / 2 - 55 - this.username.length * 5, 120);
+    this.ctx.fillText(`Prees L to logout`, this.WIDTH / 2 - 100, 150);
+    this.ctx.fillText(`PaddySnake`, this.WIDTH / 2 - 55, this.HEIGHT / 2 - 40);
+    this.ctx.fillText(`----------`, this.WIDTH / 2 - 55, this.HEIGHT / 2 - 10);
+    this.ctx.fillText(`Press ENTER to start`, this.WIDTH / 2 -102, this.HEIGHT / 2 + 40 );
+    this.ctx.fillText(`Use WASD or arrow keys to move`, this.WIDTH / 2 - 175, this.HEIGHT / 2 + 80 );
+
+    this.iHandler.update();
+
+    if (this.mainMenuRunning) {
+      setTimeout(this.menuLoop, 100)
+    } else { 
+      this.gameLoop();
+    }
+  }
+
+  gameLoop = () => {
+
+    // update
+    this.iHandler.update();
+    this.snake.update();
+
+    // check bounds
+    this.checkBounds(this.snake.head);
+
+    // check collsions
+    if (this.snake.eat(this.food)) {
+      this.snake.grow();
+      this.food.eat();
+      this.addScore();
+    }
+    if (this.snake.hitSelf()) {
+      this.gameOver();
+      return;
+    }
+
+    // draw
+    this.draw();
+
+    this.delay = 130 - this.speed;
+    setTimeout(this.gameLoop, this.delay);
+  }
+
+  addScore = () => {
     this.score += 1;
     this.getNewSpeed();
   }
 
-  getNewSpeed() {
+  getNewSpeed = () => {
     const r = Math.floor(Math.random() * 10 + 1);
 
     switch (true) {
@@ -58,30 +122,30 @@ export default class Game {
     }
   }
 
-  HUD() {
+  HUD = () => {
     this.showScore();
     this.showSpeed();
   }
 
-  showSpeed() {
+  showSpeed = () => {
     this.ctx.fillStyle = "white";
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`SPEED: ${this.speed}`, 30, 40);
   }
 
-  showScore() {
+  showScore = () => {
     this.ctx.fillStyle = "white";
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`SCORE: ${this.score}`, this.WIDTH - 130, 40);
     
   }
 
-  clearScreen(color) {
+  clearScreen = (color) => {
     this.ctx.fillStyle = color;
     this.ctx.fillRect(0, 0, this.WIDTH, this.HEIGHT);
   }
 
-  collisions(me, you) {
+  collisions = (me, you) => {
     let topRightHit = false;
     let topLeftHit = false;
     let topHit = false;
@@ -91,28 +155,22 @@ export default class Game {
     let collision = false;
 
     if (me.head.x + me.size <= you.pos.x + you.size && me.head.x + me.size >= you.pos.x) {
-      // console.log("Top Right");
       topRightHit = true;
     }
     if (me.head.x >= you.pos.x && me.head.x <= you.pos.x + you.size) {
-      // console.log("Top Left");
       topLeftHit = true;
     }
     if (topRightHit || topLeftHit) {
-      // console.log("Top Hit");
       topHit = true;
     }
 
     if (me.head.y >= you.pos.y && me.head.y <= you.pos.y + you.size) {
-      // console.log("Left Side Hit");
       leftSideHit = true;
     }
     if (me.head.y + me.size >= you.pos.y && me.head.y + me.size <= you.pos.y + you.size) {
-      // console.log("Right Side Hit");
       rightSideHit = true;
     }
     if (leftSideHit || rightSideHit)
-      // console.log("Side Hit");
       sideHit = true;
     
     if (sideHit && topHit) {
@@ -121,7 +179,7 @@ export default class Game {
     return collision;
   }
 
-  checkBounds(toCheck) {
+  checkBounds = (toCheck) => {
     if (toCheck.x > this.WIDTH - 8)
       toCheck.x = 0;
     if (toCheck.x < 0)
@@ -132,7 +190,7 @@ export default class Game {
       toCheck.y = this.HEIGHT - 8
   
   }
-  async gameOver() {
+  gameOver = async () => {
     this.ctx.fillStyle = "white";
     this.ctx.font = "30px Monospace";
     this.ctx.fillText(`GAME OVER!`, this.WIDTH / 2 - 70, this.HEIGHT / 2 - 20);
@@ -140,7 +198,6 @@ export default class Game {
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`Reload the page to try again. You can do better than ${this.score}`, this.WIDTH / 2 - 300, this.HEIGHT / 2 + 60);
 
-    // send score to backend
     let res = await fetch(this.site.concat("scores"),
       {
         method: "POST",
@@ -157,16 +214,13 @@ export default class Game {
     this.getHighScores();
   }
 
-  async login(type) { 
+  login = () => { 
     let canvas = document.getElementById("game");
     let scores = document.getElementById("highScores");
     let form = document.getElementById("form-container");
 
       
     if (this.loggedIn) {
-      console.table(signInForm.classList);
-      console.table(signUpForm.classList);
-
       canvas.classList.remove("noShow");
       canvas.classList.add("show");
       scores.classList.remove("noShow");
@@ -184,7 +238,7 @@ export default class Game {
     }
   }
 
-  async getHighScores() {
+  getHighScores = async () => {
     try {
       let response = await fetch(this.site.concat("scores"));
       let data = await response.json();
@@ -198,7 +252,7 @@ export default class Game {
     }
   }
 
-  loadHighScores(data) { 
+  loadHighScores = (data) => { 
     let scores = document.getElementById("highScoreList");
     scores.innerHTML = "";
     let newLi = document.createElement("li");
@@ -213,28 +267,14 @@ export default class Game {
     }
   }
 
-  pauseScreen() { 
-    this.clearScreen("midnightBlue");
-    this.ctx.fillStyle = "white";
-    this.ctx.font = "20px Monospace";
-    this.ctx.fillText(`PAUSED`, this.WIDTH / 2 - 37, this.HEIGHT / 2 - 40);
-    this.ctx.fillText(`Press Space to Continue`, this.WIDTH / 2 - 135, this.HEIGHT / 2 + 40);
-    this.iHandler.update();
-  }
-
-  draw(snake, food) { 
-    console.log(game.paused);
-    if (game.paused) {
-      this.pauseScreen();
-    } else {
+  draw = () => { 
       this.clearScreen("midnightBlue");
-      food.draw();
-      snake.draw();
+      this.food.draw();
+      this.snake.draw();
       this.HUD();
-    }
   }
 
-  logout() { 
+  logout = () => { 
     let res = fetch(this.site.concat("logout"),
       {
         method: "POST",
@@ -255,5 +295,13 @@ export default class Game {
       }
     });
   
+  }
+
+  loginAndStart = (data) => {
+    this.loggedIn = true;
+    this.username = data.user.username;
+    this.login();
+    this.getHighScores();
+    this.menuLoop();
   }
 }

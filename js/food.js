@@ -1,8 +1,9 @@
 export default class Food{
-  constructor(game, context, snake) {
+  constructor(context, snake, width, height) {
     this.snake = snake;
-    this.game = game;
     this.ctx = context;
+    this.width = width;
+    this.height = height;
 
     this.pos = { x: 0, y: 0 };
     this.size = 16;
@@ -11,9 +12,9 @@ export default class Food{
 
   }
 
-  getPos() {
-    this.pos.x = Math.floor(Math.random() * (this.game.WIDTH - (this.size + 10)) + 10); //set to random
-    this.pos.y = Math.floor(Math.random() * (this.game.HEIGHT - (this.size + 10)) + 10); //set to random
+  getPos = () => {
+    this.pos.x = Math.floor(Math.random() * (this.width - (this.size + 10)) + 10);
+    this.pos.y = Math.floor(Math.random() * (this.height - (this.size + 10)) + 10);
     if (this.pos.x < this.size) {
       this.pos.x = this.size;
     }
@@ -31,49 +32,39 @@ export default class Food{
       let collision = false;
   
       if (part.x + this.size <= this.pos.x + this.size && part.x + this.size >= this.pos.x) {
-        // console.log("Top Right");
         topRightHit = true;
       }
       if (part.x >= this.pos.x && part.x <= this.pos.x + this.size) {
-        // console.log("Top Left");
         topLeftHit = true;
       }
       if (topRightHit || topLeftHit) {
-        // console.log("Top Hit");
         topHit = true;
       }
   
       if (part.y >= this.pos.y && part.y <= this.pos.y + this.size) {
-        // console.log("Left Side Hit");
         leftSideHit = true;
       }
       if (part.y + this.size >= this.pos.y && part.y + this.size <= this.pos.y + this.size) {
-        // console.log("Right Side Hit");
         rightSideHit = true;
       }
       if (leftSideHit || rightSideHit)
-        // console.log("Side Hit");
         sideHit = true;
       
       if (sideHit && topHit) {
         collision = true;
       }
       if (collision) { 
-        // console.log("Wrong place");
         this.getPos();
       }
     });
   }
   
-  eat() {
+  eat = () => {
     this.getPos();
    }
 
-  draw() {
+  draw = () => {
     this.ctx.fillStyle = "red";
     this.ctx.fillRect(this.pos.x, this.pos.y, this.size, this.size);
-    // this.ctx.beginPath();
-    // this.ctx.arc(this.pos.x, this.pos.y, this.size/2, 0, 2 * Math.PI);
-    // this.ctx.fill();
   }
 }

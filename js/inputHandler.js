@@ -35,7 +35,6 @@ export default class inputHandler {
     }
 
     document.addEventListener("keydown", (event) => { 
-      // console.log(event.keyCode);
       event.preventDefault;
       let key = this.keyMap[event.keyCode];
       this.pressedKeys[key] = true;
@@ -50,7 +49,7 @@ export default class inputHandler {
   }
 
 
-  update() {
+  update = () => {
     if (this.pressedKeys.left) {
       if (this.game) {
         if (!this.game.mainMenuRunning) {
@@ -76,15 +75,6 @@ export default class inputHandler {
       if (this.game) {
         if (!this.game.mainMenuRunning) {
           this.snake.moveDown();
-        }
-      }
-    }
-    if (this.pressedKeys.space) {
-      if (this.game) {
-        if (this.game.mainMenuRunning) {
-          return;
-        } else {
-          this.snake.stop();
         }
       }
     }
