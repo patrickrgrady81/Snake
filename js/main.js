@@ -3,6 +3,7 @@ import Game from "./game.js"
 window.addEventListener('DOMContentLoaded', run);
 
 function run() {
+  
   const canvas = document.getElementById("game");
   const ctx = canvas.getContext("2d");
   const width = canvas.width;
