@@ -17,8 +17,8 @@ export default class Snake {
   createBody = () => { 
     this.head = { x: 160, y: 100 };
     for (let i = this.parts - 1; i > 0; i--){
-      let x = this.head.x - this.size * i;
-      let y = 100;
+      const x = this.head.x - this.size * i;
+      const y = 100;
       this.body.push({ x: x, y: y });
     }
     this.body.push(this.head);
@@ -132,7 +132,6 @@ export default class Snake {
   }
 
   update = () => { 
-    // loop for all pieces
     for (let i = 0; i < this.parts - 1; i++) {
       if (this.moving()) {
         this.body[i].x = this.body[i + 1].x;

@@ -11,27 +11,60 @@ function run() {
   const game = new Game(width, height, ctx);
 
   // const localResetDb = "5/13/2020";
-  const versionName = `The Major Overhaul Update`;
-  const version = `v1.0.0 (${versionName})`;
+  const versionName = `The ES6 Update`;
+  const version = `v1.1.0 (${versionName})`;
 
   populateVersion(document.getElementsByClassName("version"));
 
-  let signin = document.getElementById("signin-btn");
-  let signup = document.getElementById("signup-btn");
-  let signIn = document.getElementById("signIn");
-  let signUp = document.getElementById("signUp");
+  const signin = document.getElementById("signin-btn");
+  const signup = document.getElementById("signup-btn");
+  const signIn = document.getElementById("signIn");
+  const signUp = document.getElementById("signUp");
 
   signin.addEventListener("click", switchMenus)
   signup.addEventListener("click", switchMenus);
 
-  let anon = document.getElementById("anon-btn");
-  anon.addEventListener("click", (e) => {
+  const anon = document.getElementById("anon-btn");
+  anon.addEventListener("click", async e => {
     e.preventDefault();
-    let username = "anonymous";
-    let password = "password";
+    const username = "anonymous";
+    const password = "password";
+    let response;
+    const fetchInfo = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        username, password
+      })
+    }
 
-    let res = fetch(game.site.concat("login"),
-      {
+    try {
+      response = await fetch(game.site.concat("login"), fetchInfo);
+    } catch (error) { 
+      console.log(error);
+    }
+    if (response) {
+      const data = await response.json();
+      if (data.user) {
+        game.loginAndStart(data);
+      } else {
+        let error = document.getElementById("errorSignIn");
+        error.innerHTML = "Invalid username or password";
+      }
+    }
+  });
+
+  window.addEventListener("submit", async e => {
+    e.preventDefault();
+
+    if (e.target.id === "signInForm") {
+      const username = e.target[0].value.toLowerCase();
+      const password = e.target[1].value;
+      let response;
+      const fetchInfo = {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -41,90 +74,44 @@ function run() {
           username, password
         })
       }
-    ).then((res) => {
-      return res.json();
-    })
-      .then((data) => {
+      
+      response = await fetch(game.site.concat("login"), fetchInfo);
+      const data = await response.json();
         if (data.user) {
-          game.loginAndStart(data);
+          game.loginAndStart(data)
         } else {
           let error = document.getElementById("errorSignIn")
           error.innerHTML = "Invalid username or password";
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      })
- 
-  });
+    } else {
+      const username = e.target[0].value.toLowerCase();
+      const email = e.target[1].value.toLowerCase();
+      const password = e.target[2].value;
+      const password_confirmation = e.target[3].value;
+      let response;
+      const fetchInfo = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          username, email, password, password_confirmation
+        })
+      }
 
-  window.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    if (e.target.id === "signInForm") {
-      let username = e.target[0].value.toLowerCase();
-      let password = e.target[1].value;
-      
-      let res = fetch(game.site.concat("login"),
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            username, password
-          })
-        }
-      ).then((res) => {
-        return res.json();
-      })
-        .then((data) => {
-          if (data.user) {
-            game.loginAndStart(data)
+      response = await fetch(game.site.concat("signup"), fetchInfo)
+      const data = await response.json();
+        if (data.user) {
+          game.loginAndStart(data)
+        } else {
+          const error = document.getElementById("errorSignUp")
+          if (data.error) {
+            error.innerHTML = data.error;
           } else {
-            let error = document.getElementById("errorSignIn")
             error.innerHTML = "Invalid username or password";
           }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-    } else {
-      let username = e.target[0].value.toLowerCase();
-      let email = e.target[1].value.toLowerCase();
-      let password = e.target[2].value;
-      let password_confirmation = e.target[3].value;
-
-      let res = fetch(game.site.concat("signup"),
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json"
-          },
-          body: JSON.stringify({
-            username, email, password, password_confirmation
-          })
         }
-      ).then((res) => {
-        return res.json();
-      })
-        .then((data) => {
-          if (data.user) {
-            game.loginAndStart(data)
-          } else {
-            let error = document.getElementById("errorSignUp")
-            if (data.error) {
-              error.innerHTML = data.error;
-            } else {
-              error.innerHTML = "Invalid username or password";
-            }
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        })
     }
   });
 

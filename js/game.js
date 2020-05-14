@@ -197,26 +197,31 @@ export default class Game {
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`Reload the page to try again. You can do better than ${this.score}`, this.WIDTH / 2 - 300, this.HEIGHT / 2 + 60);
 
-    let res = await fetch(this.site.concat("scores"),
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: JSON.stringify({
-          score: this.score,
-          user: this.username
-        })
-      }
-    )
+    // send our score to backend
+    const fetchInfo = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        score: this.score,
+        user: this.username
+      })
+    }
+
+    try {
+      await fetch(this.site.concat("scores"), fetchInfo);
+    } catch (error) { 
+      console.log(error);
+    }
     this.getHighScores();
   }
 
   login = () => { 
-    let canvas = document.getElementById("game");
-    let scores = document.getElementById("highScores");
-    let form = document.getElementById("form-container");
+    const canvas = document.getElementById("game");
+    const scores = document.getElementById("highScores");
+    const form = document.getElementById("form-container");
 
       
     if (this.loggedIn) {
@@ -238,20 +243,22 @@ export default class Game {
   }
 
   getHighScores = async () => {
+    let response;
     try {
-      let response = await fetch(this.site.concat("scores"));
-      let data = await response.json();
+      response = await fetch(this.site.concat("scores"));
+      const data = await response.json();
       this.loadHighScores(data);
     }
     catch{
-      let scores = document.getElementById("highScoreList");
-      let newLi = document.createElement("li");
+      const scores = document.getElementById("highScoreList");
+      const newLi = document.createElement("li");
       newLi.innerHTML = "Server Error: Server is probably not running, maybe you should check that :)"
       scores.appendChild(newLi);
     }
   }
 
   loadHighScores = (data) => { 
+    console.log(data);
     let scores = document.getElementById("highScoreList");
     scores.innerHTML = "";
     let newLi = document.createElement("li");
@@ -273,27 +280,29 @@ export default class Game {
       this.HUD();
   }
 
-  logout = () => { 
-    let res = fetch(this.site.concat("logout"),
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
+  logout = async () => { 
+    let response;
+    const fetchInfo = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        logout: true
+      })
+    }
 
-        body: JSON.stringify({
-          logout: true
-        })
-      }
-    ).then(res => {
-      return res.json();
-    }).then((data) => {
+    try {
+      response = await fetch(this.site.concat("logout"), fetchInfo)
+      const data = await response.json();
+  
       if (data.logout) {
         location.reload();
-      }
-    });
-  
+      }  
+    } catch (error) { 
+      console.log(error);
+    }
   }
 
   loginAndStart = (data) => {

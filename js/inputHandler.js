@@ -1,7 +1,3 @@
-import Snake from "./snake.js";
-import Game from "./game.js";
-
-
 export default class inputHandler {
   constructor(snake, game) { 
     this.game = game;
@@ -36,13 +32,13 @@ export default class inputHandler {
 
     document.addEventListener("keydown", (event) => { 
       event.preventDefault;
-      let key = this.keyMap[event.keyCode];
+      const key = this.keyMap[event.keyCode];
       this.pressedKeys[key] = true;
     }, false);
 
     document.addEventListener("keyup", (event) => {
       event.preventDefault;
-      let key = this.keyMap[event.keyCode];
+      const key = this.keyMap[event.keyCode];
       this.pressedKeys[key] = false;
     }, false);
 
