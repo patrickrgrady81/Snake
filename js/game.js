@@ -12,7 +12,7 @@ export default class Game {
 
     this.localSite = "http://localhost:3000/api/v1/";
     this.herokuSite = "https://paddysnake.herokuapp.com/api/v1/";
-    this.site = this.localSite;
+    this.site = this.herokuSite;
 
     this.loggedIn = false;
 
@@ -257,8 +257,26 @@ export default class Game {
     }
   }
 
+  compare = (a, b) => {
+    // Use toUpperCase() to ignore character casing
+    const usera = a.name
+    const userb = b.name
+  
+    let comparison = 0;
+    if (usera > userb) {
+      comparison = 1;
+    } else if (usera < userb) {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  alphebetize = (data) => { 
+    return data.sort(this.compare);
+  }
+
   loadHighScores = (data) => { 
-    console.log(data);
+    data = this.alphebetize(data);
     let scores = document.getElementById("highScoreList");
     scores.innerHTML = "";
     let newLi = document.createElement("li");
