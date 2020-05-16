@@ -325,7 +325,7 @@ export default class Game {
 
   loginAndStart = (data) => {
     this.loggedIn = true;
-    this.username = data.user.username;
+    this.username = data;
     this.login();
     this.getHighScores();
     this.menuLoop();

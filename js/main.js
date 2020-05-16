@@ -11,6 +11,8 @@ function run() {
 
   const game = new Game(width, height, ctx);
 
+  game.loginAndStart("Anonymous");
+
   // const localResetDb = "5/13/2020";
   const versionName = `The ES6 Update`;
   const version = `v1.1.0 (${versionName})`;
