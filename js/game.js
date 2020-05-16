@@ -271,12 +271,7 @@ export default class Game {
     return comparison;
   }
 
-  alphebetize = (data) => { 
-    return data.sort(this.compare);
-  }
-
   loadHighScores = (data) => { 
-    data = this.alphebetize(data);
     let scores = document.getElementById("highScoreList");
     scores.innerHTML = "";
     let newLi = document.createElement("li");
