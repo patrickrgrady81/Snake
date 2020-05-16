@@ -47,7 +47,7 @@ export default class Game {
     this.ctx.fillStyle = "white";
     this.ctx.font = "20px Monospace";
     this.ctx.fillText(`Welcome ${this.username}`, this.WIDTH / 2 - 55 - this.username.length * 5, 120);
-    this.ctx.fillText(`Prees L to logout`, this.WIDTH / 2 - 100, 150);
+    // this.ctx.fillText(`Prees L to logout`, this.WIDTH / 2 - 100, 150);
     this.ctx.fillText(`PaddySnake`, this.WIDTH / 2 - 55, this.HEIGHT / 2 - 40);
     this.ctx.fillText(`----------`, this.WIDTH / 2 - 55, this.HEIGHT / 2 - 10);
     this.ctx.fillText(`Press ENTER to start`, this.WIDTH / 2 -102, this.HEIGHT / 2 + 40 );
@@ -318,11 +318,11 @@ export default class Game {
     }
   }
 
-  loginAndStart = (data) => {
+  loginAndStart = async (data) => {
     this.loggedIn = true;
     this.username = data;
     this.login();
-    this.getHighScores();
+    await this.getHighScores();
     this.menuLoop();
   }
 }
